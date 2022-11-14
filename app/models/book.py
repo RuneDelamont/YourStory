@@ -1,0 +1,31 @@
+from .db import db
+import datetime
+
+class Book(db.Model):
+    __tablename__ = 'books'
+    
+    __mapper_args__ = {
+        'polymorphic_identity': 'books',
+        'with_polymorphic': '*'
+    }
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, nullable=False)
+    author_id = db.Column(db.Integer, nullable=False)
+    name = db.Column(db.String(55), nullable=False)
+    # num_chapters = db.Column(db.Integer)
+    publish_date = db.Column(db.Integer, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'author_id': self.author_id,
+            'name': self.name,
+            # 'num_chapters': self.num_chapters,
+            'publish_date': self.publish_date,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
+        }
