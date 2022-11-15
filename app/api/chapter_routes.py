@@ -36,7 +36,7 @@ def add_chapter_to_book(id):
         db.session.commit()
         
         # return chapter dict 
-        return chapter.to_dict
+        return chapter.to_dict()
     
     # return validation errors if error
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
