@@ -7,8 +7,8 @@ from .auth_routes import validation_errors_to_error_messages
 author_routes = Blueprint('authors', __name__)
 
 #get author by id
-@author_routes.route('/<int:author_id>')
 @login_required
+@author_routes.route('/<int:author_id>')
 def get_author_by_id(author_id):
     
     author = Author.query.get(author_id)
@@ -25,7 +25,7 @@ def get_author_books(author_id):
     author = Author.query.get(author_id)
     
     # get all books with author id
-    books = Book.query.get(Book.author_id == author_id).all()
+    books = Book.query.filter(Book.author_id == int(author_id))
     
     return {
         "author" : author.to_dict(),
@@ -51,14 +51,15 @@ def create_author():
     curr_user_id = current_user.get_id()
     
     form = AuthorForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
     
     if form.validate_on_submit():
         author = Author(
             user_id = curr_user_id,
-            first_name = form['first_name'],
-            last_name = form['last_name'],
-            pen_name = form['pen_name'],
-            email = form['email']
+            first_name = form.data['first_name'],
+            last_name = form.data['last_name'],
+            pen_name = form.data['pen_name'],
+            email = form.data['email']
         )
         
         # add to db
@@ -84,14 +85,21 @@ def update_author(author_id):
     if(author is None):
         return {'error', f"Author {author_id} does not exist"}, 404
     
+    # get current user id
+    current_user_id = current_user.get_id()
+    
+    # check if current user is author user
+    if(current_user_id != author.user_id):
+        return {"error": "Forbidden error, user does not have access"}, 403
+    
     # Update in form
     form = AuthorForm()
     
     
-    author.first_name = form['first_name']
-    author.last_name = form['last_name']
-    author.pen_name = form['pen_name']
-    author.email = form['email']
+    author.first_name = form.data['first_name']
+    author.last_name = form.data['last_name']
+    author.pen_name = form.data['pen_name']
+    author.email = form.data['email']
     
     db.session.commit()
     
@@ -108,6 +116,13 @@ def delete_author(author_id):
     # return error if not found
     if(author is None):
         return {'error', f"Author {author_id} does not exist"}, 404
+    
+    # get current user id
+    current_user_id = current_user.get_id()
+    
+    # check if current user is author user
+    if(current_user_id != author.user_id):
+        return {"error": "Forbidden error, user does not have access"}, 403
     
     db.session.delete(author)
     db.session.commit()

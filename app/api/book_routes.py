@@ -52,9 +52,7 @@ book_routes = Blueprint('books', __name__)
 @book_routes.route('/<int:book_id>')
 @login_required
 def book_by_id(book_id):
-    """
-    Query get book by id
-    """
+
     # Find book by id
     book = Book.query.get(book_id)
     
@@ -88,18 +86,18 @@ def create_book():
     
     # book form
     form = BookForm()
-    
-    # # Get the csrf_token from the request cookie and put it into the
-    # # form manually to validate_on_submit can be used
-    # form['csrf_token'].data = request.cookies['csrf_token']
+
+    # Get the csrf_token from the request cookie and put it into the
+    # form manually to validate_on_submit can be used
+    form['csrf_token'].data = request.cookies['csrf_token']
     
     # if form validates create book
     if form.validate_on_submit():
         book = Book(
             user_id = user,
-            author_id = form['author_id'],
-            name = form['name'],
-            publish_date = form['publish_date']
+            author_id = form.data['author_id'],
+            name = form.data['name'],
+            publish_date = form.data['publish_date']
         )
         
         # add to db
@@ -117,10 +115,7 @@ def create_book():
 @book_routes.route('/<int:book_id>', methods=["PUT"])
 @login_required
 def update_book_by_id(book_id):
-    """
-    Query get book by id
-    """
-    
+
     # Find book by id
     book = Book.query.get(book_id)
     
@@ -128,12 +123,19 @@ def update_book_by_id(book_id):
     if(book is None):
         return {'errors': [f"Book {book_id} does not exist"]}, 404
     
+    # get current user id
+    current_user_id = current_user.get_id()
+
+    # check if current user is book user
+    if(int(current_user_id) != book.user_id):
+        return {"error": "Forbidden error, user does not have access"}, 403
+    
     form = BookForm()
     
     # update book
-    book.author_id = form['author_id'],
-    book.name = form['name'],
-    book.publish_date = form['publish_date']
+    book.author_id = form.data['author_id']
+    book.name = form.data['name']
+    book.publish_date = form.data['publish_date']
     
     # commit updated book
     db.session.commit()
@@ -154,6 +156,14 @@ def delete_book_by_id(book_id):
     # If no book at book_id return error
     if(book is None):
         return {'errors': [f"Book {book_id} does not exist"]}, 404
+    
+    
+    # get current user id
+    current_user_id = current_user.get_id()
+    
+    # check if current user is book user
+    if(int(current_user_id) != book.user_id):
+        return {"error": "Forbidden error, user does not have access"}, 403
     
     # delete then commit to db
     db.session.delete(book)

@@ -20,6 +20,10 @@ def add_chapter_to_book(id):
     if(book is None):
         return {'errors': [f"Book {id} does not exist"]}, 404
     
+    # If not book user return 403
+    if(book.user_id != int(chapter_user_id)):
+        return {"error": "Forbidden error, user does not have access"}, 403
+    
     # chapter form
     form = ChapterForm()
     
@@ -77,6 +81,13 @@ def update_chapter(chapter_id):
     # Check if chapter exists
     if(chapter is None):
         return {"error": f"Chapter {chapter_id} does not exist"}
+  
+    # get chapter_user_id
+    chapter_user_id = int(current_user.get_id())
+  
+    # if chapter.user_id != current_user.id 403  
+    if(chapter.user_id != chapter_user_id):
+        return {"error": "Forbidden error, user does not have access"}, 403
     
     # chapter form
     form = ChapterForm
@@ -92,7 +103,7 @@ def update_chapter(chapter_id):
 
 
 # delete chapter
-@chapter_routes.route('/<int:chapter_id>', methods=["PUT"])
+@chapter_routes.route('/<int:chapter_id>', methods=["DELETE"])
 @login_required
 def delete_chapter(chapter_id):
     
@@ -103,6 +114,12 @@ def delete_chapter(chapter_id):
     if(chapter is None):
         return {"error": f"Chapter {chapter_id} does not exist"}
     
+    # get current user id
+    chapter_user_id = int(current_user.get_id())
+    
+    # if chapter.user_id != current_user.id 403
+    if(chapter.user_id != chapter_user_id):
+        return {"error": "Forbidden error, user does not have access"}, 403
     
     # delete && commit to db
     db.session.delete(chapter)

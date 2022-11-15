@@ -15,11 +15,15 @@ def add_page_to_chapter(id):
     chapter = Chapter.query.get(id)
     
     # user_id
-    page_user_id = current_user.get_id()
+    page_user_id = int(current_user.get_id())
     
     # If chapter is None error
     if(chapter is None):
         return {'error': f"Chapter {id} does not exist"}, 404
+    
+    # If current_user_id != chapter.user_id return 403
+    if(page_user_id != chapter.user_id):
+        return {"error": "Forbidden error, user does not have access"}, 403
     
     form = PageForm()
     
@@ -27,7 +31,7 @@ def add_page_to_chapter(id):
         page = Page(
             user_id = page_user_id,
             chapter_id = id,
-            page_words = form['page_words']
+            page_words = form.data['page_words']
         )
         
         # add and commit to db
@@ -53,7 +57,7 @@ def get_chapter_pages(chapter_id):
         return {'error': f"Chapter {chapter_id} does not exist"}, 404
     
     # get all pages
-    pages = Page.query.get(Page.chapter_id == chapter_id).all()
+    pages = Page.query.filter(Page.chapter_id == chapter_id)
 
     return {'pages': [page.to_dict for page in pages]}
 
@@ -72,20 +76,28 @@ def get_page(page_id):
     return page.to_dict()
 
 # update page
-@page_routes.route('/<int:page_id>')
+@page_routes.route('/<int:page_id>', methods=["PUT"])
 @login_required
 def update_page(page_id):
     
     # query page
     page = Page.query.get(page_id)
     
+    # get current_user id
+    user_id = int(current_user.get_id())
+    
     # If page is none 404
     if(page is None):
         return {"error": f"Page {page_id} does not exist"}, 404
     
+    # if user_id != page.user_id return 403
+    if(user_id != page.user_id):
+        return {"error": "Forbidden error, user does not have access"}, 403
+    
+    # form
     form = PageForm()
     
-    page.page_words = form['page_words']
+    page.page_words = form.data['page_words']
     
     db.session.commit()
     
@@ -93,20 +105,23 @@ def update_page(page_id):
 
 
 # delete page
-@page_routes.route('/<int:page_id>')
+@page_routes.route('/<int:page_id>', methods=["DELETE"])
 @login_required
 def delete_page(page_id):
     
     # query page
     page = Page.query.get(page_id)
     
+    # get current_user id
+    user_id = int(current_user.get_id())
+    
     # If page is none 404
     if(page is None):
         return {"error": f"Page {page_id} does not exist"}, 404
     
-    form = PageForm()
-    
-    page.page_words = form['page_words']
+    # if user_id != page.user_id return 403
+    if(user_id != page.user_id):
+        return {"error": "Forbidden error, user does not have access"}, 403
     
     db.session.delete(page)
     db.session.commit()
