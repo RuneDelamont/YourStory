@@ -13,9 +13,9 @@ class Author(db.Model):
     user_id = db.Column(db.Integer, nullable=False)
     first_name = db.Column(db.String(55), nullable=False)
     last_name = db.Column(db.String(55), nullable=False)
-    pen_name = db.Column(db.String(55)),
+    pen_name = db.Column(db.String(55))
     email = db.Column(db.String(255), nullable=False)
-    num_books = db.Column(db.Integer)
+    # num_books = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     
@@ -27,7 +27,7 @@ class Author(db.Model):
             'last_name': self.last_name,
             'pen_name': self.pen_name,
             'email': self.email,
-            'num_books': self.num_books,
+            # 'num_books': self.num_books,
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
