@@ -1,8 +1,11 @@
-from .db import db
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 import datetime
 
 class Chapter(db.Model):
     __tablename__ = 'chapters'
+    
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
     
     __mapper_args__ = {
         'polymorphic_identity': 'chapters',
