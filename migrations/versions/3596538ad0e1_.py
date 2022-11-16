@@ -33,9 +33,6 @@ def upgrade():
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
-    
-    if environment == "production":
-        op.execute(f"ALTER TABLE books SET SCHEMA {SCHEMA};")
         
     op.create_table('books',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -47,9 +44,6 @@ def upgrade():
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
-    
-    if environment == "production":
-        op.execute(f"ALTER TABLE chapters SET SCHEMA {SCHEMA};")
         
     op.create_table('chapters',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -61,9 +55,6 @@ def upgrade():
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
-    
-    if environment == "production":
-        op.execute(f"ALTER TABLE pages SET SCHEMA {SCHEMA};")
         
     op.create_table('pages',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -76,9 +67,6 @@ def upgrade():
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
-    
-    if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
         
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -93,6 +81,22 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+    
+    if environment == "production":
+        op.execute(f"ALTER TABLE authors SET SCHEMA {SCHEMA};")
+    
+    if environment == "production":
+        op.execute(f"ALTER TABLE books SET SCHEMA {SCHEMA};")
+    
+    if environment == "production":
+        op.execute(f"ALTER TABLE chapters SET SCHEMA {SCHEMA};")
+    
+    if environment == "production":
+        op.execute(f"ALTER TABLE pages SET SCHEMA {SCHEMA};")
+    
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        
     # ### end Alembic commands ###
 
 
