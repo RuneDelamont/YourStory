@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 3aa126cde5c1
+Revision ID: 3596538ad0e1
 Revises: 
-Create Date: 2022-11-14 22:29:07.197243
+Create Date: 2022-11-15 20:25:21.494500
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '3aa126cde5c1'
+revision = '3596538ad0e1'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -42,6 +42,7 @@ def upgrade():
     op.create_table('chapters',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('author_id', sa.Integer(), nullable=False),
     sa.Column('book_id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=55), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
@@ -51,7 +52,9 @@ def upgrade():
     op.create_table('pages',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('chapter_id', sa.Integer(), nullable=True),
+    sa.Column('author_id', sa.Integer(), nullable=False),
+    sa.Column('book_id', sa.Integer(), nullable=False),
+    sa.Column('chapter_id', sa.Integer(), nullable=False),
     sa.Column('page_words', sa.String(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),

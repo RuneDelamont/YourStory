@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
 from app.forms import AuthorForm
-from app.models import Author, Book, db
+from app.models import Author, Book, Chapter, Page, db
 from .auth_routes import validation_errors_to_error_messages
 
 author_routes = Blueprint('authors', __name__)
@@ -118,11 +118,21 @@ def delete_author(author_id):
         return {'error', f"Author {author_id} does not exist"}, 404
     
     # get current user id
-    current_user_id = current_user.get_id()
+    current_user_id = int(current_user.get_id())
     
     # check if current user is author user
     if(current_user_id != author.user_id):
         return {"error": "Forbidden error, user does not have access"}, 403
+    
+    # query books, chapter, and pages then delete
+    books = Book.query.filter(Book.author_id == author_id)
+    chapters = Chapter.query.filter(Chapter.author_id == author_id)
+    pages = Page.query.filter(Page.author_id == author_id)
+    
+    books.delete(synchronize_session = False)
+    chapters.delete(synchronize_session = False)
+    pages.delete(synchronize_session = False)
+    
     
     db.session.delete(author)
     db.session.commit()

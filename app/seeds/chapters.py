@@ -5,54 +5,63 @@ def seed_chapters():
     
     chapter1 = Chapter(
         user_id = 1,
+        author_id = 1,
         book_id = 1,
         title = "Intro"
     )
     
     chapter2 = Chapter(
         user_id = 1,
+        author_id = 1,
         book_id = 1,
         title = "Adventure Begins"
     )
     
     chapter3 = Chapter(
         user_id = 1,
+        author_id = 1,
         book_id = 2,
         title = "Book 2 start"
     )
     
     chapter4 = Chapter(
         user_id = 2,
+        author_id = 2,
         book_id = 3,
         title = "Book 3 start"
     )
     
     chapter5 = Chapter(
         user_id = 2,
+        author_id = 2,
         book_id = 3,
         title = "You so scandolous"
     )
     
     chapter6 = Chapter(
         user_id = 3,
+        author_id = 3,
         book_id = 5,
         title = "The beginning of the End"
     )
     
     chapter7 = Chapter(
         user_id = 3,
+        author_id = 3,
         book_id = 5,
         title = "Ground to Dust"
     )
     
     chapter8 = Chapter(
         user_id = 3,
+        author_id = 3,
         book_id = 5,
         title = "Unfermented Stagnation"
     )
     
     chapter9 = Chapter(
         user_id = 3,
+        author_id = 3,
         book_id = 5,
         title = "Dead Soil"
     )

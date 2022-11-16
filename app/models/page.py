@@ -11,7 +11,9 @@ class Page(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, nullable=False)
-    chapter_id = db.Column(db.Integer)
+    author_id = db.Column(db.Integer, nullable=False)
+    book_id = db.Column(db.Integer, nullable=False)
+    chapter_id = db.Column(db.Integer, nullable=False)
     page_words = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
@@ -20,6 +22,8 @@ class Page(db.Model):
         return {
             'id': self.id,
             'user_id': self.user_id,
+            'author_id': self.author_id,
+            'book_id': self.book_id,
             'chapter_id': self.chapter_id,
             'page_words': self.page_words,
             'created_at': self.created_at,

@@ -1,24 +1,44 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
 from app.forms import ChapterForm
-from app.models import Chapter, Author, Book, db
+from app.models import Chapter, Author, Book, Page, db
 from .auth_routes import validation_errors_to_error_messages
 
 chapter_routes = Blueprint('chapters', __name__)
 
-# add chapter to book
-@chapter_routes.route('/<int:id>', methods=["POST"])
+# get pages by chapter id
+@chapter_routes.route('/<int:chapter_id>/pages')
 @login_required
-def add_chapter_to_book(id):
+def get_chapter_pages(chapter_id):
+
+    # get chapter
+    chapter = Chapter.query.get(chapter_id)
     
-    # Find book by id
-    book = Book.query.get(id)
+    # If chapter is None 404 error
+    if(chapter is None):
+        return {'error': f"Chapter {chapter_id} does not exist"}, 404
+    
+    # get all pages
+    pages = Page.query.filter(Page.chapter_id == chapter_id)
+
+    return {
+        'chapter': chapter.to_dict(),
+        'pages': [page.to_dict() for page in pages]
+        }
+
+# add chapter to book
+@chapter_routes.route('/<int:book_id>', methods=["POST"])
+@login_required
+def add_chapter_to_book(book_id):
+    
+    # Find book by book_id
+    book = Book.query.get(book_id)
     
     chapter_user_id = current_user.get_id()
     
     # If no book at id return error
     if(book is None):
-        return {'errors': [f"Book {id} does not exist"]}, 404
+        return {'errors': [f"Book {book_id} does not exist"]}, 404
     
     # If not book user return 403
     if(book.user_id != int(chapter_user_id)):
@@ -27,12 +47,17 @@ def add_chapter_to_book(id):
     # chapter form
     form = ChapterForm()
     
+    # Get the csrf_token from the request cookie and put it into the
+    # form manually to validate_on_submit can be used
+    form['csrf_token'].data = request.cookies['csrf_token']
+    
     # if form is valid
     if(form.validate_on_submit()):
         chapter = Chapter(
             user_id = chapter_user_id,
-            book_id = id,
-            title = form['title']
+            author_id = book.author_id,
+            book_id = book.id,
+            title = form.data['title']
         )
         
         # commit chapter
@@ -44,16 +69,6 @@ def add_chapter_to_book(id):
     
     # return validation errors if error
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
-
-# get a books chapters
-@chapter_routes.route('/<int:book_id>/chapters')
-@login_required
-def get_book_chapters(book_id):
-    
-    # get all chapters
-    chapters = Chapter.query.get(Chapter.book_id == book_id).all()
-    
-    return {"chapters": [chapter.to_dict() for chapter in chapters]}
 
 
 # get chapter by id
@@ -90,10 +105,10 @@ def update_chapter(chapter_id):
         return {"error": "Forbidden error, user does not have access"}, 403
     
     # chapter form
-    form = ChapterForm
+    form = ChapterForm()
     
     # update chapter
-    chapter.title = form['title']
+    chapter.title = form.data['title']
     
     # commit to db
     db.session.commit()
@@ -120,6 +135,10 @@ def delete_chapter(chapter_id):
     # if chapter.user_id != current_user.id 403
     if(chapter.user_id != chapter_user_id):
         return {"error": "Forbidden error, user does not have access"}, 403
+    
+    # Query for pages then delete
+    pages = Page.query.filter(Page.chapter_id == chapter_id)
+    pages.delete(synchronize_session = False)
     
     # delete && commit to db
     db.session.delete(chapter)

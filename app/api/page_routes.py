@@ -7,19 +7,19 @@ from .auth_routes import validation_errors_to_error_messages
 page_routes = Blueprint('pages', __name__)
 
 # add page to chapter
-@page_routes.route('/<int:id>', methods=['POST'])
+@page_routes.route('/<int:chapter_id>', methods=['POST'])
 @login_required
-def add_page_to_chapter(id):
+def add_page_to_chapter(chapter_id):
     
     # find chapter
-    chapter = Chapter.query.get(id)
+    chapter = Chapter.query.get(chapter_id)
     
     # user_id
     page_user_id = int(current_user.get_id())
     
     # If chapter is None error
     if(chapter is None):
-        return {'error': f"Chapter {id} does not exist"}, 404
+        return {'error': f"Chapter {chapter_id} does not exist"}, 404
     
     # If current_user_id != chapter.user_id return 403
     if(page_user_id != chapter.user_id):
@@ -27,10 +27,16 @@ def add_page_to_chapter(id):
     
     form = PageForm()
     
+    # Get the csrf_token from the request cookie and put it into the
+    # form manually to validate_on_submit can be used
+    form['csrf_token'].data = request.cookies['csrf_token']
+    
     if(form.validate_on_submit()):
         page = Page(
             user_id = page_user_id,
-            chapter_id = id,
+            author_id = chapter.author_id,
+            book_id = chapter.book_id,
+            chapter_id = chapter.id,
             page_words = form.data['page_words']
         )
         
@@ -43,23 +49,6 @@ def add_page_to_chapter(id):
     
     # return validation errors if any
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-
-
-# get pages by chapter id
-@page_routes.route('/<int:chapter_id>')
-def get_chapter_pages(chapter_id):
-
-    # get chapter
-    chapter = Chapter.query.get(chapter_id)
-    
-    # If chapter is None 404 error
-    if(chapter is None):
-        return {'error': f"Chapter {chapter_id} does not exist"}, 404
-    
-    # get all pages
-    pages = Page.query.filter(Page.chapter_id == chapter_id)
-
-    return {'pages': [page.to_dict for page in pages]}
 
 
 # get page by id
@@ -127,3 +116,13 @@ def delete_page(page_id):
     db.session.commit()
     
     return {"message": f"Page {page_id} successfully deleted"}
+
+
+# get pages
+@page_routes.route('/')
+def get_pages():
+    
+    # get pages
+    pages = Page.query.all()
+    
+    return {"pages" : [page.to_dict() for page in pages]}

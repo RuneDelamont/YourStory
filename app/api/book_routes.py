@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
 from app.forms import BookForm, ChapterForm
-from app.models import Book, Chapter, db
+from app.models import Book, Chapter, Page, db
 from .auth_routes import validation_errors_to_error_messages
 
 book_routes = Blueprint('books', __name__)
@@ -38,15 +38,26 @@ book_routes = Blueprint('books', __name__)
 #     # return validation errors if error
 #     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
-# # get a books chapters
-# @book_routes.route('/<int:book_id>/chapters')
-# @login_required
-# def get_book_chapters(book_id):
+# get a books chapters
+@book_routes.route('/<int:book_id>/chapters')
+@login_required
+def get_book_chapters(book_id):
     
-#     # get all chapters
-#     chapters = Chapter.query.get(Chapter.book_id == book_id).all()
+    # get book
+    book = Book.query.get(book_id)
     
-#     return {"chapters": [chapter.to_dict() for chapter in chapters]}
+    # If book is none return 404
+    if(book is None):
+        return {"error": f"Book {book_id} does not exist"}, 404
+    
+    # get all chapters
+    chapters = Chapter.query.filter(Chapter.book_id == book_id)
+    
+    return {
+        "book": book.to_dict(),
+        "chapters": [chapter.to_dict() for chapter in chapters]
+        }
+
 
 # get book by id
 @book_routes.route('/<int:book_id>')
@@ -164,6 +175,14 @@ def delete_book_by_id(book_id):
     # check if current user is book user
     if(int(current_user_id) != book.user_id):
         return {"error": "Forbidden error, user does not have access"}, 403
+
+    # grab chapters and delete
+    chapters = Chapter.query.filter(Chapter.book_id == book_id)
+    chapters.delete(synchronize_session = False)
+    
+    # grab pages and delete
+    pages = Page.query.filter(Page.book_id == book_id)
+    pages.delete(synchronize_session = False)
     
     # delete then commit to db
     db.session.delete(book)
