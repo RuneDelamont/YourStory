@@ -1,0 +1,45 @@
+#modal {
+	/* display */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	/* position */
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+}
+
+#modal-background {
+	/* position */
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+
+	/* fixed modal bug if not showing any background color */
+}
+
+.modal-background-true {
+	background-color: black;
+	opacity: 0;
+}
+
+.modal-background-false {
+	background-color: black;
+	opacity: 0.5;
+}
+
+#modal-content {
+	/* display */
+	display: flex;
+
+	/* layout */
+	background-color: #242629;
+
+	border-radius: 0.75rem;
+	border: 1px solid #393b3f;
+}
