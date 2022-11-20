@@ -70,8 +70,15 @@ def book_by_id(book_id):
     # If no book at book_id return error
     if(book is None):
         return {'errors': [f"Book {book_id} does not exist"]}, 404
+
+    # get all chapters
+    chapters = Chapter.query.filter(Chapter.book_id == book_id)
     
-    return book.to_dict()
+    return {
+        "book": book.to_dict(),
+        "chapters": [chapter.to_dict() for chapter in chapters]
+        }    
+    # return book.to_dict()
 
 
 

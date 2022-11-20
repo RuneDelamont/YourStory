@@ -83,7 +83,15 @@ def get_chapter_by_id(chapter_id):
     if(chapter is None):
         return {'error': f"Chapter {chapter_id} is not found"}, 404
     
-    return chapter.to_dict()
+    # return chapter.to_dict()
+    # get all pages
+    pages = Page.query.filter(Page.chapter_id == chapter_id)
+
+    return {
+        'chapter': chapter.to_dict(),
+        'pages': [page.to_dict() for page in pages]
+        }
+
 
 # update chapter
 @chapter_routes.route('/<int:chapter_id>', methods=["PUT"])

@@ -1,9 +1,19 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session'
+import authorReducer from './author'
+import bookReducer from './book'
+import chapterReducer from './chapter'
+import pageReducer from './page'
+import userReducer from './user';
 
 const rootReducer = combineReducers({
   session,
+  authors: authorReducer,
+  books: bookReducer,
+  chapters: chapterReducer,
+  pages: pageReducer,
+  users: userReducer
 });
 
 

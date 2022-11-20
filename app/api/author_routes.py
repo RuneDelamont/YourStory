@@ -6,7 +6,7 @@ from .auth_routes import validation_errors_to_error_messages
 
 author_routes = Blueprint('authors', __name__)
 
-#get author by id
+#get author by id and books
 @login_required
 @author_routes.route('/<int:author_id>')
 def get_author_by_id(author_id):
@@ -15,14 +15,24 @@ def get_author_by_id(author_id):
     
     if(author is None):
         return {'errors': f"Author {author_id} does not exist"}, 404
+
+    # get all books with author id
+    books = Book.query.filter(Book.author_id == int(author_id))
     
-    return author.to_dict()
+    # return author.to_dict()
+    return {
+        "author" : author.to_dict(),
+        "books" : [book.to_dict() for book in books]
+    }
 
 #get author books
 @author_routes.route('/<int:author_id>/books')
 def get_author_books(author_id):
     
     author = Author.query.get(author_id)
+    
+    if(author is None):
+        return {'errors': f"Author {author_id} does not exist"}, 404
     
     # get all books with author id
     books = Book.query.filter(Book.author_id == int(author_id))
