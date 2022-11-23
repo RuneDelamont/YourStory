@@ -125,4 +125,4 @@ def get_pages():
     # get pages
     pages = Page.query.all()
     
-    return {"pages" : [page.to_dict() for page in pages]}
+    return {"pages" : {page.id: page.to_dict() for page in pages}}

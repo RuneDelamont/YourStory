@@ -22,7 +22,7 @@ def get_author_by_id(author_id):
     # return author.to_dict()
     return {
         "author" : author.to_dict(),
-        "books" : [book.to_dict() for book in books]
+        "books" : {book.id: book.to_dict() for book in books}
     }
 
 #get author books
@@ -39,7 +39,7 @@ def get_author_books(author_id):
     
     return {
         "author" : author.to_dict(),
-        "books" : [book.to_dict() for book in books]
+        "books" : {book.id: book.to_dict() for book in books}
         }
 
 #get all authors
@@ -49,7 +49,7 @@ def get_authors():
     
     authors = Author.query.all()
     
-    return {'authors': [author.to_dict() for author in authors]}
+    return {'authors': {author.id: author.to_dict() for author in authors}}
 
 
 #create an author

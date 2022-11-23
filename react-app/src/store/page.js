@@ -47,11 +47,11 @@ export const deletePage = (id) => {
 // get all pages
 export const thunkGetPages = () => async (dispatch) => {
     // fetch all pages
-    const res = await fetch(`/api/pages`);
+    const res = await fetch(`/api/pages/`);
 
     // if res.status === 200
     if(res.ok){
-        const pages = res.json();
+        const pages = await res.json();
 
         // dispatch and return pages
         dispatch(getPages(pages.pages));
@@ -62,11 +62,11 @@ export const thunkGetPages = () => async (dispatch) => {
 // get page by Id
 export const thunkGetPage = (pageId) => async (dispatch) => {
     // fetch get page by Id
-    const res = await fetch(`/api/pags/${pageId}`);
+    const res = await fetch(`/api/pags/${pageId}/`);
 
     // if res.status === 200
     if(res.ok) {
-        const page = res.json();
+        const page = await res.json();
         dispatch(getPage(page.id));
 
         return page;
@@ -76,7 +76,7 @@ export const thunkGetPage = (pageId) => async (dispatch) => {
 // create page in chapter 
 export const thunkCreateNewPage = (chapterId, page) => async(dispatch) => {
     // fetch post new page
-    const res = await fetch(`/api/pages/${chapterId}`, {
+    const res = await fetch(`/api/pages/${chapterId}/`, {
         method: "POST",
         headers: {
             "content-type": "application/json"
@@ -87,7 +87,7 @@ export const thunkCreateNewPage = (chapterId, page) => async(dispatch) => {
     // if res.status === 200
     if(res.ok){
 
-        const newPage = res.json();
+        const newPage = await res.json();
         dispatch(createPage(newPage));
 
         return newPage;
@@ -97,7 +97,7 @@ export const thunkCreateNewPage = (chapterId, page) => async(dispatch) => {
 // edit page
 export const thunkEditPage = (page, pageId) => async (dispatch) => {
     // fetch page
-    const res = await fetch(`/api/pages/${pageId}`,{
+    const res = await fetch(`/api/pages/${pageId}/`,{
         method: "PUT",
         headers: {
             "content-type" : "application/json"
@@ -107,7 +107,7 @@ export const thunkEditPage = (page, pageId) => async (dispatch) => {
 
     // if res.status === 200
     if(res.ok){
-        const editedPage = res.json();
+        const editedPage = await res.json();
 
         // edit and dispatch
         dispatch(updatePage(editedPage));
@@ -120,7 +120,7 @@ export const thunkEditPage = (page, pageId) => async (dispatch) => {
 // delete page
 export const thunkDeletePage = (id) => async (dispatch) => {
     // fetch delete page
-    const res = await fetch(`/api/pages/${id}`, {
+    const res = await fetch(`/api/pages/${id}/`, {
         method: "DELETE"
     });
 

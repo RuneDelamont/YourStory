@@ -23,7 +23,7 @@ def get_chapter_pages(chapter_id):
 
     return {
         'chapter': chapter.to_dict(),
-        'pages': [page.to_dict() for page in pages]
+        'pages': {page.id: page.to_dict() for page in pages}
         }
 
 # add chapter to book
@@ -89,7 +89,7 @@ def get_chapter_by_id(chapter_id):
 
     return {
         'chapter': chapter.to_dict(),
-        'pages': [page.to_dict() for page in pages]
+        'pages': {page.id: page.to_dict() for page in pages}
         }
 
 
@@ -163,4 +163,4 @@ def get_chapters():
     # get chapters
     chapters = Chapter.query.all()
     
-    return {"chapters": [chapter.to_dict() for chapter in chapters]}
+    return {"chapters": {chapter.id: chapter.to_dict() for chapter in chapters}}

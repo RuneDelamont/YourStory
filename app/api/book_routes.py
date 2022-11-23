@@ -55,7 +55,7 @@ def get_book_chapters(book_id):
     
     return {
         "book": book.to_dict(),
-        "chapters": [chapter.to_dict() for chapter in chapters]
+        "chapters": {chapter.id: chapter.to_dict() for chapter in chapters}
         }
 
 
@@ -76,7 +76,7 @@ def book_by_id(book_id):
     
     return {
         "book": book.to_dict(),
-        "chapters": [chapter.to_dict() for chapter in chapters]
+        "chapters": {chapter.id: chapter.to_dict() for chapter in chapters}
         }    
     # return book.to_dict()
 
@@ -91,7 +91,7 @@ def books():
     """
     # Find all books in table
     books = Book.query.all()
-    return {'books': [book.to_dict() for book in books]}
+    return {'books': {book.id: book.to_dict() for book in books}}
 
 # Create book
 @book_routes.route('/', methods=['POST'])

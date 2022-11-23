@@ -32,10 +32,10 @@ export const createAuthor = (author) => {
     };
 };
 
-export const putAuthor = (author) => {
+export const putAuthor = (id) => {
     return {
         type: PUT_AUTHOR,
-        author
+        id
     }
 }
 
@@ -53,26 +53,26 @@ export const deleteAuthor = (id) => {
 // Get all authors
 export const thunkGetAuthors = () => async (dispatch) => {
     // get all authors
-    const res = await fetch('/api/authors');
+    const res = await fetch('/api/authors/');
 
     if(res.ok){
-        const authors = res.json();
+        const authorData = await res.json();
 
         // dispatch authors
-        dispatch(loadAuthors(authors.authors))
+        dispatch(loadAuthors(authorData.authors))
 
-        return authors;
+        return authorData;
     }
 }
 
 // Get author
 export const thunkGetAuthor = (id) => async(dispatch) => {
     // get author
-    const res = await fetch(`/api/authors/${id}`);
+    const res = await fetch(`/api/authors/${id}/`);
 
     if(res.ok){
         // json author
-        const author = res.json();
+        const author = await res.json();
 
         // dispatch
         dispatch(loadAuthor(author.id));
@@ -103,7 +103,7 @@ export const thunkGetAuthor = (id) => async(dispatch) => {
 export const thunkCreateAuthor = (author) => async(dispatch) => {
     // const { first_name, last_name, pen_name, email } = author;
 
-    const res = await fetch(`/api/authors`, { 
+    const res = await fetch(`/api/authors/`, { 
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -128,7 +128,7 @@ export const thunkPutAuthor = (author, authorId) => async (dispatch) => {
     // const { id } = author;
     
     // fetch
-    const res = await fetch(`/api/authors/${authorId}`, {
+    const res = await fetch(`/api/authors/${authorId}/`, {
         method: "PUT",
         headers: {
             'content-type' : 'application/json'
@@ -150,7 +150,7 @@ export const thunkPutAuthor = (author, authorId) => async (dispatch) => {
 export const thunkDeleteAuthor = (author) => async(dispatch) => {
     // fetch
 
-    const res = await fetch(`/api/author/${author.id}`, {
+    const res = await fetch(`/api/author/${author.id}/`, {
         method: "DELETE"
     });
 
@@ -164,17 +164,13 @@ export const thunkDeleteAuthor = (author) => async(dispatch) => {
 
 // Selector
 
-
-
-// Reducer
-
 const initialState = {};
 
 export default function authorReducer(state = initialState, action) {
     const newAuthors = { ...state };
-
+    
     switch(action.type) {
-
+        
         case DELETE_AUTHOR:
             delete newAuthors[action.id];
 

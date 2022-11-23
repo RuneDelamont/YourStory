@@ -1,14 +1,23 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-// import videoBackground from '../../assets/sky-standard.mp4';
+import { NavLink, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
+import SignUpFormModal from "./SignUpForm";
+import LogInFormModal from "./LogInForm";
+import DemoUser from "./DemoUser/DemoUser";
 import './LandingPage.css';
 
 const LandingPage = () => {
 
+    const user = useSelector(state => state.session.user);
+
+    if(user){
+        return <Redirect to="/main" />;
+    }
+    
     return (
         <div id="landing-main">
             <div id="video-background">
-                <video src="../../assets/sky-standard.mp4" 
+                <video src="/assets/sky-standard.mp4" 
                 autoPlay 
                 loop 
                 muted 
@@ -19,6 +28,9 @@ const LandingPage = () => {
                         <div id="text-container">
                             <h1>Your Story</h1>
                             <h1>Give flight to your words</h1>
+                            <LogInFormModal />
+                            <SignUpFormModal />
+                            <DemoUser />
                         </div>
                     </div>
                 </div>

@@ -56,10 +56,10 @@ export const deleteBook = (id) => {
 // get books
 export const thunkGetBooks = () => async (dispatch) => {
     // get all books
-    const res = await fetch(`/api/books`);
+    const res = await fetch(`/api/books/`);
 
     if(res.ok){
-        const books = res.json();
+        const books = await res.json();
 
         // dispatch and return all books
         dispatch(getBooks(books.books))
@@ -71,10 +71,10 @@ export const thunkGetBooks = () => async (dispatch) => {
 // get book
 export const thunkGetBook = (id) => async (dispatch) => {
     // get book by id
-    const res = await fetch(`/api/books/${id}`);
+    const res = await fetch(`/api/books/${id}/`);
 
     if(res.ok){
-        const book = res.json();
+        const book = await res.json();
 
         // dispatch and return book
         dispatch(getBook(book.id));
@@ -86,7 +86,7 @@ export const thunkGetBook = (id) => async (dispatch) => {
 // create book
 export const thunkCreateBook = (book) => async (dispatch) => {
     // fetch
-    const res = await fetch(`/api/books`, {
+    const res = await fetch(`/api/books/`, {
         method: "POST",
         headers: {
             "content-type" : "application/json"
@@ -95,7 +95,7 @@ export const thunkCreateBook = (book) => async (dispatch) => {
     });
 
     if(res.ok){
-        const newBook = res.json();
+        const newBook = await res.json();
 
         // dispatch && return
         dispatch(createBook(newBook));
@@ -109,7 +109,7 @@ export const thunkCreateBook = (book) => async (dispatch) => {
 // edit book
 export const thunkEditBook = (book, bookId) => async (dispatch) => {
     // fetch
-    const res = await fetch(`/api/books/${bookId}`, {
+    const res = await fetch(`/api/books/${bookId}/`, {
         method: "PUT",
         headers: {
             "content-type" : "application/json"
@@ -118,7 +118,7 @@ export const thunkEditBook = (book, bookId) => async (dispatch) => {
     });
 
     if(res.ok){
-        const updatedBook = res.json();
+        const updatedBook = await res.json();
 
         // dispatch && return
         dispatch(updateBook(updatedBook));
@@ -132,7 +132,7 @@ export const thunkEditBook = (book, bookId) => async (dispatch) => {
 // delete book
 export const thunkDeleteBook = (id) => async (dispatch) => {
     // fetch delete
-    const res = await fetch(`/api/books${id}`, {
+    const res = await fetch(`/api/books${id}/`, {
         method: "DELETE"
     });
 
