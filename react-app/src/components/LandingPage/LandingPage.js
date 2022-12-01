@@ -19,27 +19,29 @@ const LandingPage = () => {
 
     const user = useSelector(state => state.session.user);
 
-    if(user){
+    if (user) {
         return <Redirect to="/main" />;
     }
-    
+
     return (
         <div id="landing-main">
             <div id="video-background">
-                <video src="/assets/sky-standard.mp4" 
-                autoPlay 
-                loop 
-                muted 
-                height={'100%'} 
-                width={'100%'} />
+                <video src="/assets/sky-standard.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    height={'100%'}
+                    width={'100%'} />
                 <div id="overlay">
                     <div id="content">
                         <div id="text-container">
                             <h1>Your Story</h1>
                             <h1>Give flight to your words</h1>
-                            <LogInFormModal />
-                            <SignUpFormModal />
-                            <DemoUser />
+                            <div id="buttons-container">
+                                <LogInFormModal />
+                                <SignUpFormModal />
+                                <DemoUser />
+                            </div>
                         </div>
                     </div>
                 </div>

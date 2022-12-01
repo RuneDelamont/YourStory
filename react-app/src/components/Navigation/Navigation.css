@@ -2,7 +2,95 @@
     top: 0;
     display: flex;
     flex-direction: row;
-    height: 50px;
+    height: 70px;
     width: 100%;
-    position: absolute;
+    padding-top: .33rem;
+    position: sticky;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: #000000 solid 1px;
+    background-color: rgba(255, 255, 255, 1);
 }
+
+#home-button{
+    height: 50px;
+    width: 50px;
+    left: 0.25rem;
+    margin-top: .5rem;
+    margin-left: 15px;
+}
+
+#profile-logo{
+    height: 40px;
+    width: 40px;
+    margin-right: 15px;
+    margin-top: .5rem;
+    cursor: pointer;
+}
+
+.button-nav {
+    background-color: #FFFFFF;
+    border: 1px solid #222222;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #222222;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    margin: 0 1rem;
+    outline: none;
+    padding: 8px 18px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    touch-action: manipulation;
+    transition: box-shadow .2s,-ms-transform .1s,-webkit-transform .1s,transform .1s;
+    user-select: none;
+    -webkit-user-select: none;
+    width: auto;
+  }
+  
+  .button-nav:focus-visible {
+    box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+    transition: box-shadow .2s;
+  }
+  
+  .button-nav:active {
+    background-color: #F7F7F7;
+    border-color: #000000;
+    transform: scale(.96);
+  }
+  
+  .button-nav:disabled {
+    border-color: #DDDDDD;
+    color: #DDDDDD;
+    cursor: not-allowed;
+    opacity: 1;
+  }
+
+  .nav-links{
+    display: flex;
+  }
+
+  #user-dropdown{
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(0, 0, 0);
+    border-top: 0;
+    border-radius: 04px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: 700;
+    line-height: 1.5;
+    padding: 1em;
+    font-size: 1em;
+    cursor: pointer;
+    z-index: 1;
+    right: 0.07rem;
+    margin-top: 9.4em;
+  }

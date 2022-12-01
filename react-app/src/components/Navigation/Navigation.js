@@ -1,32 +1,34 @@
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import LogoutButton from '../auth/LogoutButton';
+import ProfileButton from './ProfileButton';
 
 import "./Navigation.css"
 
 const Navigation = () => {
   return (
     <nav id="Navigation">
-      <div className='nav-links'>
-          <NavLink to='/' exact={true} activeClassName='active'>
-            Home
-          </NavLink>
 
-          <NavLink to='/login' exact={true} activeClassName='active'>
-            Login
-          </NavLink>
+      <NavLink to='/main' exact={true} activeClassName='active'>
+        <img title='home' id='home-button' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/book-pen-logo.png' />
+      </NavLink>
 
-          <NavLink to='/sign-up' exact={true} activeClassName='active'>
-            Sign Up
-          </NavLink>
+      {/* <div className='nav-links'> */}
+        <NavLink to='/authors' exact={true} activeClassName='active'>
+          <button className='button-nav'>
+           Authors 
+          </button>
+        </NavLink>
 
-          <NavLink to='/users' exact={true} activeClassName='active'>
-            Users
-          </NavLink>
+        <NavLink to='/books' exact={true} activeClassName='active'>
+        <button className='button-nav'>
+           Books 
+          </button>
+        </NavLink>
 
-          <LogoutButton />
-      </div>
+
+      {/* </div> */}
+        <ProfileButton />
 
     </nav>
   );
