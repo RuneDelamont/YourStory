@@ -1,4 +1,5 @@
 #Navigation{
+    top: 0;
     display: flex;
     flex-direction: row;
     height: 50px;

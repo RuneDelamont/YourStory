@@ -15,7 +15,7 @@ export default function LogInForm() {
         e.preventDefault();
         setErrors([]);
 
-        return dispatch(sessionActions.login({ email, password }))
+        return dispatch(sessionActions.login( email, password ))
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
@@ -38,7 +38,7 @@ export default function LogInForm() {
             <input
                 className="log-in-text-input"
                 placeholder="Password"
-                type="text"
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required

@@ -5,13 +5,13 @@ import * as sessionActions from "../../../store/session";
 import './DemoUser.css'
 
 export default function DemoUser () {
-    const dispatch = useDispatch();
     const [email] = useState('demo@aa.io');
     const [password] = useState('password');
+    const dispatch = useDispatch();
 
-    const demoLogin = e => {
+    const demoLogin = async e => {
         e.preventDefault();
-        return dispatch(sessionActions.login({ email, password }));
+        return await dispatch(sessionActions.login( email, password ));
     }
 
     return (

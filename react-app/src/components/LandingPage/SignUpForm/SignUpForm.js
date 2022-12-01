@@ -20,7 +20,7 @@ export default function SignUpForm() {
         if (password === confirmPassword) {
             setErrors([]);
 
-            return dispatch(sessionActions.signUp({ userName, firstName, lastName, email, password }))
+            return dispatch(sessionActions.signUp( userName, firstName, lastName, email, password ))
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors);

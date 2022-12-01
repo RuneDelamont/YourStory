@@ -14,8 +14,6 @@ const LandingPage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(authorActions.thunkGetAuthors());
-        dispatch(bookActions.thunkGetBooks());
         dispatch(sessionActions.authenticate());
     }, [dispatch]);
 

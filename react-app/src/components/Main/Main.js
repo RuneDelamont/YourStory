@@ -43,7 +43,7 @@ export default function Main() {
 
     return (
         <>
-            {/* <Navigation /> */}
+            <Navigation />
             <img id='book-image' src="https://your-story-bucket.s3.us-west-1.amazonaws.com/flipping-pages.jpg" />
             <section id='main-section'>
                 <h1 className='main-title'>Authors</h1>
