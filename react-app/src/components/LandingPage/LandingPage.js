@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink, Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import * as authorActions from '../../store/author';
+import * as bookActions from '../../store/book';
+import * as sessionActions from '../../store/session';
 import SignUpFormModal from "./SignUpForm";
 import LogInFormModal from "./LogInForm";
 import DemoUser from "./DemoUser/DemoUser";
 import './LandingPage.css';
 
 const LandingPage = () => {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(authorActions.thunkGetAuthors());
+        dispatch(bookActions.thunkGetBooks());
+        dispatch(sessionActions.authenticate());
+    }, [dispatch]);
 
     const user = useSelector(state => state.session.user);
 
