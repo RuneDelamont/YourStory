@@ -41,7 +41,7 @@
     font-size: 16px;
     font-weight: 600;
     line-height: 20px;
-    margin: 0 1rem;
+    margin: 1rem 1rem;
     outline: none;
     padding: 8px 18px;
     position: relative;
@@ -92,5 +92,5 @@
     cursor: pointer;
     z-index: 1;
     right: 0.07rem;
-    margin-top: 9.4em;
+    margin-top: 13.4em;
   }

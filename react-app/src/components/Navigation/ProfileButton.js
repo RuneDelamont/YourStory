@@ -32,7 +32,7 @@ export default function ProfileButton() {
             <img onClick={openMenu} id='profile-logo' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/profile-logo.png' />
             {showMenu  && (
                 <div id='user-dropdown'>
-                    <NavLink to={`/my`}>My profile</NavLink>
+                    <NavLink to={`/my`}><button className='button-nav'>My Profile</button></NavLink>
                     <LogoutButton />
                 </div>
             )}

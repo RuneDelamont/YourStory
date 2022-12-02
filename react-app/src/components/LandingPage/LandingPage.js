@@ -26,7 +26,7 @@ const LandingPage = () => {
     return (
         <div id="landing-main">
             <div id="video-background">
-                <video src="/assets/sky-standard.mp4"
+                <video src="https://your-story-bucket.s3.us-west-1.amazonaws.com/sky-standard.mp4"
                     autoPlay
                     loop
                     muted
