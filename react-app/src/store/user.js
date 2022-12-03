@@ -2,6 +2,7 @@
 
 const GET_USERS = 'users/GET_USERS';
 const GET_USER = 'users/GET_USER';
+const GET_CURRENT_USER = 'users/GET_CURRENT_USER';
 const DELETE_USER = 'users/DELETE_USER';
 
 
@@ -21,6 +22,13 @@ export const getUser = (id) => {
     }
 }
 
+export const getCurrentUser = (user) => {
+    return {
+        type: GET_CURRENT_USER,
+        user
+    }
+}
+
 export const deleteUser = (id) => {
     return {
         type: DELETE_USER,
@@ -32,29 +40,42 @@ export const deleteUser = (id) => {
 
 export const thunkGetUsers = () => async (dispatch) => {
     // fetch
-    const res = await fetch(`/api/users`);
+    const res = await fetch(`/api/users/`);
 
     // if res.status === 200
     if(res.ok){
-        const users = res.json();
+        const users = await res.json();
 
         // dispatch and return
-        dispatch(users.users);
+        dispatch(getUsers(users.users));
         return users;
     }
 }
 
 export const thunkGetUser = (id) => async (dispatch) => {
     // fetch
-    const res = await fetch(`'/api/users/${id}`);
+    const res = await fetch(`/api/users/${id}/`);
 
     // if res.status === 200
     if(res.ok){
-        const user = res.json();
+        const user = await res.json();
 
         // dispatch user and return
-        dispatch(user.id);
+        dispatch(getUser(user.id));
         return user;
+    }
+}
+
+export const thunkGetCurrentUser = () => async (dispatch) => {
+    // fetch
+    const res = await fetch(`/api/users/current/`);
+
+    // if res.status === 200
+    if(res.ok){
+        const currentUser = await res.json();
+
+        dispatch(getCurrentUser(currentUser));
+        return currentUser;
     }
 }
 

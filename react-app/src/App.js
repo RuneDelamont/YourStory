@@ -8,6 +8,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import LandingPage from './components/LandingPage';
 import Main from './components/Main';
+import ProfilePage from './components/ProfilePage';
 import { authenticate } from './store/session';
 
 function App() {
@@ -37,6 +38,9 @@ function App() {
         </Route>
         <Route path='/main' exact={true}>
           <Main />
+        </Route>
+        <Route path='/my' exact={true}>
+          <ProfilePage />
         </Route>
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>

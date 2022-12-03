@@ -16,17 +16,31 @@ def users():
 
 
 # get user by id
-@user_routes.route('/<int:id>')
+@user_routes.route('/<int:id>/')
 @login_required
 def user(id):
     """
     Query for a user by id and returns that user in a dictionary
     """
+    
+    # get current user through current user id
     user = User.query.get(id)
-    return user.to_dict()
+
+    # user authors
+    authors = Author.query.filter(Author.user_id == user.id)
+
+    # user books
+    books = Book.query.filter(Book.user_id == user.id)
+
+    # return
+    return {
+        "user": user.to_dict(),
+        "authors": {author.id: author.to_dict() for author in authors},
+        "books": {book.id: book.to_dict() for book in books}
+    }
 
 # get current user
-@user_routes.route('/current')
+@user_routes.route('/current/')
 @login_required
 def get_current_user():
     
@@ -42,14 +56,14 @@ def get_current_user():
     # return
     return {
         "user": user.to_dict(),
-        "authors": [author.to_dict() for author in authors],
-        "books": [book.to_dict() for book in books]
+        "authors": {author.id: author.to_dict() for author in authors},
+        "books": {book.id: book.to_dict() for book in books}
         }
     
     
     
 # get user authors
-@user_routes.route('/authors')
+@user_routes.route('/authors/')
 @login_required
 def get_current_user_authors():
     
@@ -62,12 +76,12 @@ def get_current_user_authors():
     # return user with authors
     return {
         "user": user.to_dict(),
-        "authors": [author.to_dict() for author in authors]
+        "authors": {author.id: author.to_dict() for author in authors}
     }
     
     
 # get user books
-@user_routes.route('/books')
+@user_routes.route('/books/')
 @login_required
 def get_current_user_books():
     
@@ -80,5 +94,5 @@ def get_current_user_books():
     # return user and books
     return {
         "user": user.to_dict(),
-        "books": [book.to_dict() for book in books]
+        "books": {book.id: book.to_dict() for book in books}
     }
