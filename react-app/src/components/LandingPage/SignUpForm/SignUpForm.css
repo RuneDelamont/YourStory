@@ -1,3 +1,28 @@
+.sign-up-form{
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    border-radius: 0.75rem;
+    border: 1px solid #ffffff;
+    height: 28rem;
+    width: 24rem;
+    padding: 3rem;
+    transition: all 0.25s ease-in-out;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center; 
+}
+
+
+.sign-up-text-input {
+    outline: none;
+    border: 0;
+    border: 1px solid #cecece;
+    height: 40px;
+    width: 50%;
+    margin-bottom: 2rem;
+}
+
 #sign-up-button{
     margin: 1rem;
     align-items: center;

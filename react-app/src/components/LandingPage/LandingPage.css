@@ -21,11 +21,17 @@
 }
 
 #text-container{
+    display: flex;
     text-align: center;
     background-color: rgba(30, 30, 30, 0.4);
     color: rgb(255, 255, 255);
-    padding: 3rem 4rem;
+    /* padding: 3rem 4rem; */
+    padding: 1rem;
     border-radius: 5px;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
 }
 
 

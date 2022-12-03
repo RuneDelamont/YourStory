@@ -15,24 +15,24 @@ export default function SignUpForm() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState([]);
 
-    const submitAction = e => {
+    const submitAction = async e => {
         e.preventDefault();
         if (password === confirmPassword) {
             setErrors([]);
 
-            return dispatch(sessionActions.signUp( userName, firstName, lastName, email, password ))
-                .catch(async (res) => {
-                    const data = await res.json();
-                    if (data && data.errors) setErrors(data.errors);
-                });
+            const data = await dispatch(sessionActions.signUp( userName, firstName, lastName, email, password ))
+        
+            if(data){
+                setErrors(data)
+            };
         }
         return setErrors(["Password and confirm password must match."]);
     }
 
     return (
         <form className='sign-up-form' onSubmit={submitAction}>
-            <h1 id='sign-up-header'>Create Account</h1>
-            <ul>
+            {/* <h1 id='sign-up-header'>Create Account</h1> */}
+            <ul id='sign-up-errors'>
                 {errors.map((error, id) => <li key={id}>{error}</li>)}
             </ul>
             <input className='sign-up-text-input'
@@ -71,7 +71,7 @@ export default function SignUpForm() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
             />
-            <button className='button-sign-up-modal' type='submit'>Sign Up</button>
+            <button id='sign-up-button' type='submit'>Sign Up</button>
 
         </form>
     )

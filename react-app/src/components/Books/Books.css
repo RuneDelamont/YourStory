@@ -1,0 +1,20 @@
+#book-div{
+    display: flex;
+    margin-top: 5rem;
+    flex-direction: column;
+    align-items: center;
+}
+
+#book-header{
+    text-align: center;
+}
+
+.book-sections {
+    display: flex;
+    width: 50%;
+    background-color: #efefefe0;
+    margin-top: 2.5rem;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    padding-left: 1rem;
+}

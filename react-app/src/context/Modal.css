@@ -38,12 +38,9 @@
 	display: flex;
 
 	/* layout */
-	background-color: rgb(255, 255, 255);
+	/* background-color: #242629;
 
 	border-radius: 0.75rem;
-	border: 1px solid #ffffff;
-	height: 400px;
-    padding: 3rem;
-    width: 400px;
-	transition: all 0.25s ease-in-out;
+	border: 1px solid #393b3f; */
+
 }

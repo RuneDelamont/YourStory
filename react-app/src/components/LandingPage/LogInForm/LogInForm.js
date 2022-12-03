@@ -11,24 +11,24 @@ export default function LogInForm() {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
 
-    const submitAction = (e) => {
+    const submitAction = async (e) => {
         e.preventDefault();
         setErrors([]);
 
-        return dispatch(sessionActions.login( email, password ))
-            .catch(async (res) => {
-                const data = await res.json();
-                console.log(data, 'data');
-                if (data && data.errors) setErrors(data.errors);
-            });
+        const data = await dispatch(sessionActions.login(email, password));
+
+        if (data) {
+            setErrors(data)
+        }
     }
 
     return (
         <form id="login-form" onSubmit={submitAction}>
-            <ul>
+            <ul id='login-errors'>
                 {errors.map((error) => { return <li key={error}>{error}</li> })}
             </ul>
             <input
+                id='email-input'
                 className="log-in-text-input"
                 placeholder="Email"
                 type="text"
@@ -37,6 +37,7 @@ export default function LogInForm() {
                 required
             />
             <input
+                id="password-input"
                 className="log-in-text-input"
                 placeholder="Password"
                 type="password"
@@ -44,7 +45,7 @@ export default function LogInForm() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
             />
-            <button id="Login-button" type="submit">Log in</button>
+            <button id="login-button" type="submit">Log in</button>
         </form>
     );
 }
