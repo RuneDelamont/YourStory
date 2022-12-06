@@ -43,7 +43,7 @@ export default function BookDetails() {
             <TemplatePage />
             {(book?.user_id === user?.id) && (
                 <>
-                    <button>Works</button>
+                    <DeleteButton/>
                 </>
             )}
             <div id='book-container'>

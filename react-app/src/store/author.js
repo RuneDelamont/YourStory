@@ -150,7 +150,7 @@ export const thunkPutAuthor = (author, authorId) => async (dispatch) => {
 export const thunkDeleteAuthor = (author) => async(dispatch) => {
     // fetch
 
-    const res = await fetch(`/api/author/${author.id}/`, {
+    const res = await fetch(`/api/authors/${author.id}`, {
         method: "DELETE"
     });
 
