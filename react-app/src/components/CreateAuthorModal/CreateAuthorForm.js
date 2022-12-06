@@ -19,7 +19,6 @@ export default function CreateAuthor() {
     const [email, setEmail] = useState('');
     const [penName, setPenName] = useState('');
 
-    console.log(Array.isArray(errors));
     const submitAction = async e => {
         e.preventDefault();
 
@@ -33,11 +32,8 @@ export default function CreateAuthor() {
 
         const data = await dispatch(authorActions.thunkCreateAuthor(author));
 
-        console.log(data);
-
         if(data){
-            setErrors(data);
-            console.log(data)
+            setErrors(data); 
         }
         await dispatch(authorActions.thunkGetAuthors());
         await history.push('/authors');

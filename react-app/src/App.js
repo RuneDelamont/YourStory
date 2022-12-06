@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Authors from './components/Authors';
 import AuthorDetails from './components/AuthorDetails/AuthorDetails';
+import BookDetails from './components/BookDetails';
 import Books from './components/Books';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
@@ -20,8 +21,8 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      dispatch(authorActions.thunkGetAuthors());
-      dispatch(bookActions.thunkGetBooks());
+      // dispatch(authorActions.thunkGetAuthors());
+      // dispatch(bookActions.thunkGetBooks());
       dispatch(authenticate());
       setLoaded(true);
     })();
@@ -37,6 +38,9 @@ function App() {
       <Switch>
         <Route path='/authors/:authorId' exact={true}>
           <AuthorDetails />
+        </Route>
+        <Route path='/books/:bookId' exact={true}>
+          <BookDetails />
         </Route>
         <Route path='/authors' exact={true}>
           <Authors />

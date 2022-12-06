@@ -128,7 +128,7 @@ export const thunkPutAuthor = (author, authorId) => async (dispatch) => {
     // const { id } = author;
     
     // fetch
-    const res = await fetch(`/api/authors/${authorId}/`, {
+    const res = await fetch(`/api/authors/${authorId}`, {
         method: "PUT",
         headers: {
             'content-type' : 'application/json'

@@ -80,9 +80,6 @@ def create_author():
         return author.to_dict()
     
     # return validation errors
-    print('------------------')
-    print(form.errors)
-    print('------------------')
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -99,7 +96,7 @@ def update_author(author_id):
         return {'error', f"Author {author_id} does not exist"}, 404
     
     # get current user id
-    current_user_id = current_user.get_id()
+    current_user_id = int(current_user.get_id())
     
     # check if current user is author user
     if(current_user_id != author.user_id):
@@ -107,7 +104,7 @@ def update_author(author_id):
     
     # Update in form
     form = AuthorForm()
-    
+    form['csrf_token'].data = request.cookies['csrf_token']
     
     author.first_name = form.data['first_name']
     author.last_name = form.data['last_name']

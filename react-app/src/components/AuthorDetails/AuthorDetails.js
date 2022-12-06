@@ -7,11 +7,14 @@ import * as bookActions from '../../store/book';
 import * as sessionActions from '../../store/session';
 import * as userActions from '../../store/user';
 import TemplatePage from '../TemplatePage';
+import EditAutorModal from '../EditAuthorModal';
+import DeleteButton from '../DeleteButton';
 
 import './AuthorDetails.css';
 
 export default function AuthorDetails() {
     const { authorId } = useParams();
+
 
     const user = useSelector(state => state.session.user);
     const books = useSelector(state => Object.values(state.books));
@@ -35,12 +38,19 @@ export default function AuthorDetails() {
     const authorLastName = author?.last_name;
     const authorPenName = author?.pen_name;
     const authorEmail = author?.email; 
+    const authorUserID = author?.user_id;
     
 
 
     return (
         <>
             <TemplatePage />
+            {(authorUserID === user?.id) && (
+                <>
+                    <EditAutorModal author={authorId}/>
+                    <DeleteButton />
+                </>
+            )}
             <div id='author-container'>
                 <div id='author-pic'>
                 </div>
