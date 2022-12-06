@@ -8,6 +8,8 @@ import * as sessionActions from '../../store/session';
 import * as userActions from '../../store/user';
 import TemplatePage from '../TemplatePage';
 import Carousel from '../Carousel/Carousel';
+import CreateAuthorModal from '../CreateAuthor/CreateAuthor';
+// import CreateAuthorModal from '../CreateAuthor/CreateAuthor';
 
 import './ProfilePage.css';
 
@@ -41,7 +43,7 @@ export default function ProfilePage() {
         <>
             <TemplatePage />
             <div id='button-container'>
-                <button>Click me bro</button>
+                <CreateAuthorModal />
                 <button>Click me too bro</button>
             </div>
             <div id='profile-container'>
@@ -60,7 +62,7 @@ export default function ProfilePage() {
                     <h3 className='profile-subheaders'>Authors</h3>
                     {userAuthors && userAuthors.map(author => {
                         return (
-                            <section className='profile-authors-section'>
+                            <section className='profile-authors-section' key={author.id}>
                                 <NavLink to={`/authors/${author.id}`}>{author.pen_name}</NavLink>
                             </section>
                         )
@@ -70,7 +72,7 @@ export default function ProfilePage() {
                     <h3 className='profile-subheaders'>Books</h3>
                     {userBooks && userBooks.map(book => {
                         return (
-                            <section className='profile-books-section'>
+                            <section className='profile-books-section' key={book.id}>
                                 <NavLink to={`/books/${book.id}`}>{book.name}</NavLink>
                             </section>
                         )

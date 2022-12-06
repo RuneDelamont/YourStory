@@ -68,14 +68,14 @@ export const thunkGetAuthors = () => async (dispatch) => {
 // Get author
 export const thunkGetAuthor = (id) => async(dispatch) => {
     // get author
-    const res = await fetch(`/api/authors/${id}/`);
+    const res = await fetch(`/api/authors/${id}`);
 
     if(res.ok){
         // json author
         const author = await res.json();
 
         // dispatch
-        dispatch(loadAuthor(author.id));
+        dispatch(loadAuthor(author));
 
         // return author
         return author
@@ -177,6 +177,6 @@ export default function authorReducer(state = initialState, action) {
             return newAuthors;
 
         default:
-            return Object.assign({}, newAuthors, action.authors)
+            return Object.assign({}, newAuthors, action.authors, action.author)
     }
 }

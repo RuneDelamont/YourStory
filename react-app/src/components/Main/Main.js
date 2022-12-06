@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, NavLink } from 'react-router-dom';
 import * as authorActions from '../../store/author';
 import * as bookActions from '../../store/book';
+import * as chapterActions from '../../store/chapter';
+import * as pageActions from '../../store/page';
 import * as sessionActions from '../../store/session';
 import Navigation from '../Navigation';
 import Carousel from '../Carousel/Carousel';
@@ -35,6 +37,8 @@ export default function Main() {
         dispatch(sessionActions.authenticate());
         dispatch(authorActions.thunkGetAuthors());
         dispatch(bookActions.thunkGetBooks());
+        dispatch(chapterActions.thunkGetChapters());
+        dispatch(pageActions.thunkGetPages());
     }, [dispatch]);
 
     if (!user) return (

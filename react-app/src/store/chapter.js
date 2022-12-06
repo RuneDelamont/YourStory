@@ -55,7 +55,7 @@ export const thunkGetChapters = () => async (dispatch) => {
         const chapters = await res.json();
 
         // dispatch and return
-        dispatch(chapters);
+        dispatch(getChapters(chapters));
         return chapters;
     }
 }

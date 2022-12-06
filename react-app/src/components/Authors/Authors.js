@@ -19,9 +19,9 @@ export default function Authors() {
         dispatch(authorActions.thunkGetAuthors());
     }, [dispatch]);
 
-    if (!user) return (
-        <Redirect to='/' />
-    )
+    // if (!user) return (
+    //     <Redirect to='/' />
+    // )
 
     return (
         <>
