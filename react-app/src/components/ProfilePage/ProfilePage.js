@@ -8,9 +8,9 @@ import * as sessionActions from '../../store/session';
 import * as userActions from '../../store/user';
 import TemplatePage from '../TemplatePage';
 import Carousel from '../Carousel/Carousel';
-import CreateAuthorModal from '../CreateAuthor/CreateAuthor';
 // import CreateAuthorModal from '../CreateAuthor/CreateAuthor';
-
+// import CreateAuthorModal from '../CreateAuthor/CreateAuthor';
+import CreateAuthorModal from '../CreateAuthorModal';
 import './ProfilePage.css';
 
 export default function ProfilePage() {
@@ -18,13 +18,13 @@ export default function ProfilePage() {
     const books = useSelector(state => Object.values(state.books));
     const authors = useSelector(state => Object.values(state.authors));
 
-    const userAuthors = authors.filter(author => author.user_id === user.id)
-    const userBooks = books.filter(book => book.user_id === user.id)
+    const userAuthors = authors?.filter(author => author.user_id === user?.id)
+    const userBooks = books?.filter(book => book.user_id === user?.id)
 
-    const userFirstName = user.first_name;
-    const userLastName = user.last_name;
-    const userEmail = user.email;
-    const userName = user.username;
+    const userFirstName = user?.first_name;
+    const userLastName = user?.last_name;
+    const userEmail = user?.email;
+    const userName = user?.username;
 
 
     const dispatch = useDispatch();

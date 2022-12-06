@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import { Modal } from "../../context/Modal";
-import CreateAuthor from "./CreateAuthor";
-import "./CreateAuthor.css";
+// import CreateAuthor from "./CreateAuthorModal";
+import CreateAuthor from './CreateAuthorForm'
+import "./CreateAuthorForm";
 
 export default function CreateAuthorModal() {
     const [showModal, setShowModal] = useState(false);
@@ -11,11 +12,11 @@ export default function CreateAuthorModal() {
             <button id='create-author-button' onClick={() => setShowModal(true)}>
                 Create Author
             </button>
-            {/* {showModal && (
+            {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                     <CreateAuthor />
                 </Modal>
-            )} */}
+            )}
         </>
     )
 }

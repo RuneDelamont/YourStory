@@ -80,6 +80,9 @@ def create_author():
         return author.to_dict()
     
     # return validation errors
+    print('------------------')
+    print(form.errors)
+    print('------------------')
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 

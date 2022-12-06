@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 // import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import * as authorActions from '../../store/author';
 
 
 
-import "./CreateAuthor.css";
+import "./CreateAuthorModal.css";
 
 export default function CreateAuthor() {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const userId = useSelector(state => state.session.user.id)
     const [errors, setErrors] = useState([]);
@@ -17,18 +19,28 @@ export default function CreateAuthor() {
     const [email, setEmail] = useState('');
     const [penName, setPenName] = useState('');
 
+    console.log(Array.isArray(errors));
     const submitAction = async e => {
         e.preventDefault();
 
         setErrors([]);
-        const author = {firstName, lastName, email, penName};
+        const author = {
+            user_id: userId, 
+            first_name: firstName, 
+            last_name: lastName, 
+            email: email, 
+            pen_name: penName};
 
-        const data = await dispatch(authorActions.thunkCreateAuthor(author))
+        const data = await dispatch(authorActions.thunkCreateAuthor(author));
+
         console.log(data);
 
         if(data){
             setErrors(data);
+            console.log(data)
         }
+        await dispatch(authorActions.thunkGetAuthors());
+        await history.push('/authors');
     }
 
 
@@ -36,7 +48,7 @@ export default function CreateAuthor() {
         <form className='author-form' onSubmit={submitAction}>
         {/* <h1 id='author-form-header'>Create Account</h1> */}
         <ul id='author-form-errors'>
-            {errors.map((error, id) => <li key={id}>{error}</li>)}
+            {Array.isArray(errors) && errors?.map((error, id) => <li key={id}>{error}</li>)}
         </ul>
         <input className='author-form-text-input'
             placeholder='First Name'
@@ -62,7 +74,7 @@ export default function CreateAuthor() {
             value={penName}
             onChange={(e) => setPenName(e.target.value)}
         />
-        <button id='author-form-button' type='submit'>Sign Up</button>
+        <button id='author-form-button' type='submit'>Create Author</button>
 
     </form>
     );

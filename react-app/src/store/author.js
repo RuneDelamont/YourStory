@@ -177,6 +177,6 @@ export default function authorReducer(state = initialState, action) {
             return newAuthors;
 
         default:
-            return Object.assign({}, newAuthors, action.authors, action.author)
+            return Object.assign({}, newAuthors, action.authors)
     }
 }

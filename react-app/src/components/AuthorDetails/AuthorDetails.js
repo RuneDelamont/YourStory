@@ -18,10 +18,10 @@ export default function AuthorDetails() {
     const authors = useSelector(state => Object.values(state.authors));
 
     // const userAuthors = authors.filter(author => author.user_id === authorId)
-    const authorBooks = books.filter(book => book.author_id === Number(authorId))
+    const authorBooks = books?.filter(book => book.author_id === Number(authorId))
     const author = useSelector(state => state.authors[authorId]);
     // console.log(authorBooks)
-    console.log(author)
+    // console.log(author)
 
     const dispatch = useDispatch();
 
@@ -31,10 +31,10 @@ export default function AuthorDetails() {
         // dispatch(authorActions.thunkGetAuthor(authorId));
     }, [dispatch])
 
-    // const authorFirstName = author.first_name ? author.first_name : null;
-    // const authorLastName = author.last_name ? author.last_name: null;
-    // const authorPenName = author.pen_name ? author.pen_name: null;
-    // const authorEmail = author.email ? author.email: null;
+    const authorFirstName = author?.first_name;
+    const authorLastName = author?.last_name;
+    const authorPenName = author?.pen_name;
+    const authorEmail = author?.email; 
     
 
 
@@ -46,10 +46,10 @@ export default function AuthorDetails() {
                 </div>
                 <section id='author-details'>
                     <h2> Author</h2>
-                    <p className='author-text'>pen name: {author.pen_name}</p>
-                    <p className='author-text'>first name: {author.first_name}</p>
-                    <p className='author-text'>last name: {author.last_name}</p>
-                    <p className='author-text'>email: {author.email}</p>
+                    <p className='author-text'>pen name: {authorFirstName}</p>
+                    <p className='author-text'>first name: {authorLastName}</p>
+                    <p className='author-text'>last name: {authorPenName}</p>
+                    <p className='author-text'>email: {authorEmail}</p>
                 </section>
             </div>
             <div id='author-lists'>
