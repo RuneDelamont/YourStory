@@ -17,7 +17,6 @@ class Chapter(db.Model):
     author_id = db.Column(db.Integer, nullable=False)
     book_id = db.Column(db.Integer, nullable=False)
     title = db.Column(db.String(55), nullable=False)
-    # num_pages = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     
@@ -28,7 +27,6 @@ class Chapter(db.Model):
             'author_id': self.author_id,
             'book_id': self.book_id,
             'title': self.title,
-            # 'num_pages': self.num_pages,
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }

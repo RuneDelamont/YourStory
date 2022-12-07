@@ -109,7 +109,7 @@ export const thunkCreateBook = (book) => async (dispatch) => {
 // edit book
 export const thunkEditBook = (book, bookId) => async (dispatch) => {
     // fetch
-    const res = await fetch(`/api/books/${bookId}/`, {
+    const res = await fetch(`/api/books/${bookId}`, {
         method: "PUT",
         headers: {
             "content-type" : "application/json"
@@ -130,18 +130,18 @@ export const thunkEditBook = (book, bookId) => async (dispatch) => {
 
 
 // delete book
-export const thunkDeleteBook = (id) => async (dispatch) => {
+export const thunkDeleteBook = (book) => async (dispatch) => {
     // fetch delete
-    const res = await fetch(`/api/books${id}/`, {
+    const res = await fetch(`/api/books/${book.id}`, {
         method: "DELETE"
     });
 
     // if res.status === 200 delete book
     if(res.ok){
-        dispatch(deleteBook(id))
-        return null;
+        dispatch(deleteBook(book.id))
     }
-
+    
+    return null;
 }
 
 

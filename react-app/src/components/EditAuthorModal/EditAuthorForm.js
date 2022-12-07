@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import * as authorActions from '../../store/author';
@@ -15,8 +14,7 @@ export default function EditAuthorForm({ setShowModal }) {
     const author = useSelector(state => state.authors[authorId])
     const dispatch = useDispatch();
     const history = useHistory();
-    console.log(author)
-
+    
     const userId = useSelector(state => state.session.user.id)
     const [errors, setErrors] = useState([]);
     const [firstName, setFirstName] = useState(author.first_name);

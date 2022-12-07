@@ -11,6 +11,7 @@ import Carousel from '../Carousel/Carousel';
 // import CreateAuthorModal from '../CreateAuthor/CreateAuthor';
 // import CreateAuthorModal from '../CreateAuthor/CreateAuthor';
 import CreateAuthorModal from '../CreateAuthorModal';
+import CreateBookModal from '../CreateBookModal';
 import './ProfilePage.css';
 
 export default function ProfilePage() {
@@ -28,14 +29,12 @@ export default function ProfilePage() {
 
 
     const dispatch = useDispatch();
-    // let { albumId } = useParams();
     const history = useHistory();
 
     useEffect(() => {
         dispatch(userActions.thunkGetUsers())
         dispatch(authorActions.thunkGetAuthors())
         dispatch(bookActions.thunkGetBooks())
-        // dispatch(userActions.thunkGetCurrentUser())
     }, [dispatch])
 
 
@@ -44,7 +43,9 @@ export default function ProfilePage() {
             <TemplatePage />
             <div id='button-container'>
                 <CreateAuthorModal />
-                <button>Click me too bro</button>
+                {userAuthors && (
+                    <CreateBookModal />
+                )}
             </div>
             <div id='profile-container'>
                 <div id='profile-pic'>

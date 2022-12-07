@@ -154,6 +154,7 @@ export const thunkDeleteAuthor = (author) => async(dispatch) => {
         method: "DELETE"
     });
 
+    // if res.status === 200 delete
     if (res.ok) {
         dispatch(deleteAuthor(author.id))
     }

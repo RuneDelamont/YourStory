@@ -10,14 +10,15 @@ import * as pageActions from '../../store/page';
 import './DeleteButton.css';
 
 export default function DeleteButton(){
-    let {authorId, bookId } = useParams();
+    let {authorId, bookId, chapterId } = useParams();
 
     if(authorId) authorId = Number(authorId);
     if(bookId) bookId = Number(bookId);
-    
+    if(chapterId) chapterId = Number(chapterId);
 
     const authors = useSelector(state => Object.values(state.authors));
     const books = useSelector(state => Object.values(state.books));
+    const chapters = useSelector(state => Object.values(state.chapters));
 
     const url = window.location.href.split('/');
     const location = url[3];
@@ -39,6 +40,12 @@ export default function DeleteButton(){
             let book = books?.filter(book => book.id === bookId)[0];
             dispatch(bookActions.thunkDeleteBook(book));
             history.push('/books');
+        }
+
+        if(chapterId) {
+            let chapter = chapters?.filter(chapter => chapter.id === chapterId);
+            dispatch(chapterActions.thunkDeleteChapter(chapter));
+            history.push(`/books/${chapter.book_id}`);
         }
     }
 

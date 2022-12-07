@@ -9,6 +9,7 @@ import * as userActions from '../../store/user';
 import TemplatePage from '../TemplatePage';
 import EditAutorModal from '../EditAuthorModal';
 import DeleteButton from '../DeleteButton';
+import NotFoundPage from '../NotFoundPage';
 
 import './AuthorDetails.css';
 
@@ -20,11 +21,10 @@ export default function AuthorDetails() {
     const books = useSelector(state => Object.values(state.books));
     const authors = useSelector(state => Object.values(state.authors));
 
-    // const userAuthors = authors.filter(author => author.user_id === authorId)
     const authorBooks = books?.filter(book => book.author_id === Number(authorId))
     const author = useSelector(state => state.authors[authorId]);
-    // console.log(authorBooks)
-    // console.log(author)
+
+
 
     const dispatch = useDispatch();
 
@@ -40,6 +40,9 @@ export default function AuthorDetails() {
     const authorEmail = author?.email; 
     const authorUserID = author?.user_id;
     
+    if(!author)  return (
+        <NotFoundPage />
+    )
 
 
     return (

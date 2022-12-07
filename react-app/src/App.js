@@ -5,6 +5,8 @@ import Authors from './components/Authors';
 import AuthorDetails from './components/AuthorDetails/AuthorDetails';
 import BookDetails from './components/BookDetails';
 import Books from './components/Books';
+import ChapterDetails from './components/ChapterDetails/ChapterDetails';
+import NotFoundPage from './components/NotFoundPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
@@ -42,17 +44,20 @@ function App() {
         <Route path='/books/:bookId' exact={true}>
           <BookDetails />
         </Route>
+        <Route path='/chapters/:chapterId'>
+          <ChapterDetails />
+        </Route>
         <Route path='/authors' exact={true}>
           <Authors />
         </Route>
         <Route path='/books' exact={true}>
           <Books />
         </Route>
-        <Route path='/main' exact={true}>
-          <Main />
-        </Route>
         <Route path='/my' exact={true}>
           <ProfilePage />
+        </Route>
+        <Route path='/main' exact={true}>
+          <Main />
         </Route>
         <ProtectedRoute path='/users' exact={true} >
           <UsersList />
@@ -62,6 +67,9 @@ function App() {
         </ProtectedRoute>
         <Route path='/' exact={true} >
           <LandingPage />
+        </Route>
+        <Route>
+          <NotFoundPage />
         </Route>
       </Switch>
     </BrowserRouter>
