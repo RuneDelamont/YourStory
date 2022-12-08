@@ -36,6 +36,9 @@ export default function BookDetails() {
     const publishDate = book?.publish_date;
     const bookChapters = chapters?.filter(chapter => chapter.book_id === book?.id);
 
+    if (!user) return (
+        <Redirect to='/' />
+    )
 
     if(!book)  return (
         <NotFoundPage />
@@ -51,8 +54,9 @@ export default function BookDetails() {
                 </>
             )}
             <div id='book-container'>
-                <div id='book-pic'>
-                </div>
+                
+                <img id='book-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/Vintage-Book-Image.jpg' />
+                
                 <section id='book-details'>
                     <h2>{name}</h2>
                     {/* <p className='book-text'>name: {name}</p> */}

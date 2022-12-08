@@ -26,14 +26,18 @@ export default function Authors() {
     return (
         <>
             <TemplatePage />
-            <div id='author-div'>
+            <div id='authors-section'>
                 <h1 id='author-header'>Authors</h1>
-                {authors && Object.entries(authors).map(([key, author]) => {
-                    return (<section className="author-sections" key={author.id}>
-                                <NavLink to={`/authors/${author.id}`}><h3>{author.first_name} {author.last_name}</h3></NavLink>
-                            </section>
+                <div id='author-div'>
+                    {authors && Object.entries(authors).map(([key, author]) => {
+                        return (<section className="author-sections" key={author.id}>
+                            <img id='author-section-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/writer_sihoutte.jpeg' />
+                            <NavLink className='author-section-nav' to={`/authors/${author.id}`}>{author.first_name} {author.last_name}</NavLink>
+                        </section>
+                        )
+                    }
                     )}
-                )}
+                </div>
             </div>
         </>
     );

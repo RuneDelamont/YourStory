@@ -27,15 +27,22 @@ export default function ProfilePage() {
     const userEmail = user?.email;
     const userName = user?.username;
 
+    const [loaded, setLoaded] = useState(false);
+
 
     const dispatch = useDispatch();
     const history = useHistory();
 
     useEffect(() => {
+        dispatch(sessionActions.authenticate()).then(setLoaded(true));
         dispatch(userActions.thunkGetUsers())
         dispatch(authorActions.thunkGetAuthors())
         dispatch(bookActions.thunkGetBooks())
     }, [dispatch])
+
+    // if (!user) return (
+    //     <Redirect to='/' />
+    // )
 
 
     return (
@@ -64,7 +71,8 @@ export default function ProfilePage() {
                     {userAuthors && userAuthors.map(author => {
                         return (
                             <section className='profile-authors-section' key={author.id}>
-                                <NavLink to={`/authors/${author.id}`}>{author.pen_name}</NavLink>
+                                <img className='author-profile-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/writer_sihoutte.jpeg' />
+                                <NavLink className='profile-nav' to={`/authors/${author.id}`}>{author.pen_name}</NavLink>
                             </section>
                         )
                     })}
@@ -74,7 +82,8 @@ export default function ProfilePage() {
                     {userBooks && userBooks.map(book => {
                         return (
                             <section className='profile-books-section' key={book.id}>
-                                <NavLink to={`/books/${book.id}`}>{book.name}</NavLink>
+                                <img className='book-profile-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/Vintage-Book-Image.jpg' />
+                                <NavLink className='profile-nav' to={`/books/${book.id}`}>{book.name}</NavLink>
                             </section>
                         )
                     })}

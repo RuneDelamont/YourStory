@@ -39,11 +39,14 @@ export default function AuthorDetails() {
     const authorPenName = author?.pen_name;
     const authorEmail = author?.email; 
     const authorUserID = author?.user_id;
+
+    if (!user) return (
+        <Redirect to='/' />
+    )
     
     if(!author)  return (
         <NotFoundPage />
     )
-
 
     return (
         <>
@@ -55,8 +58,7 @@ export default function AuthorDetails() {
                 </>
             )}
             <div id='author-container'>
-                <div id='author-pic'>
-                </div>
+                <img id='author-details-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/writer_sihoutte.jpeg' />
                 <section id='author-details'>
                     <h2> Author</h2>
                     <p className='author-text'>pen name: {authorFirstName}</p>

@@ -8,7 +8,7 @@ export default function CreateAuthorModal() {
 
     return (
         <>
-            <button id='create-author-button' onClick={() => setShowModal(true)}>
+            <button className='create-author-button' onClick={() => setShowModal(true)}>
                 Create Author
             </button>
             {showModal && (

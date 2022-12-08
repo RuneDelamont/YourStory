@@ -12,7 +12,7 @@ import Carousel from '../Carousel/Carousel';
 import "./Main.css";
 
 
-export default function Main() {
+export default function Main({ loaded }) {
 
     const user = useSelector(state => state.session.user);
     const authors = useSelector(state => Object.values(state.authors));
@@ -45,7 +45,7 @@ export default function Main() {
         <Redirect to='/' />
     )
 
-    return (
+    return loaded && (
         <>
             <Navigation />
             <img id='book-image' src="https://your-story-bucket.s3.us-west-1.amazonaws.com/flipping-pages.jpg" />

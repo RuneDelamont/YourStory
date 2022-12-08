@@ -57,7 +57,7 @@ function App() {
           <ProfilePage />
         </Route>
         <Route path='/main' exact={true}>
-          <Main />
+          <Main loaded={loaded}/>
         </Route>
         <ProtectedRoute path='/users' exact={true} >
           <UsersList />

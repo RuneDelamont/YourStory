@@ -35,7 +35,6 @@ export default function CreateBookForm(){
     for( let i = 1980; i <= currentYear; i++){
         years.push(i);
     }
-    // console.log(years);
 
     const submitAction = async e => {
         e.preventDefault();
@@ -57,18 +56,28 @@ export default function CreateBookForm(){
     }
 
     return (
-        <form className='book-form' onSubmit={submitAction}>
-        {/* <h1 id='book-form-header'>Create Account</h1> */}
-        <ul id='book-form-errors'>
+        <form className='create-book-form' onSubmit={submitAction}>
+        {/* <h1 id='create-book-form-header'>Create Account</h1> */}
+        <ul id='create-book-form-errors'>
             {Array.isArray(errors) && errors?.map((error, id) => <li key={id}>{error}</li>)}
         </ul>
-        <input className='book-form-text-input'
+        <label for="create-book-form-name">Name</label>
+        <input className='create-book-form-text-input'
+            id="create-book-form-name"
+            required
             placeholder='Name'
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
         />
-        <select className="book-form-select" value={authorId} onChange={handleAuthorId}>
+        <label for="create-book-form-author-id">Author</label>
+        <select 
+            className="create-book-form-select" 
+            id="create-book-form-author-id"
+            value={authorId} 
+            onChange={handleAuthorId} 
+            required
+        >
             {userAuthors?.map(author => {
                 return(
                     <option className="book-author-option" key={author.id} value={author.id}>
@@ -77,7 +86,14 @@ export default function CreateBookForm(){
                 )
             })}
         </select>
-        <select className="book-form-select" value={publishDate} onChange={handlePublishDate}>
+        <label for="create-book-form-publish-date">Publish Date</label>
+        <select 
+            className="create-book-form-select" 
+            id="create-book-form-publish-date"
+            value={publishDate} 
+            onChange={handlePublishDate} 
+            required
+        >
             {years?.map(year => {
                 return(
                     <option className="book-year-option" key={year} value={year}>
@@ -86,7 +102,7 @@ export default function CreateBookForm(){
                 )
             })}
         </select>
-        <button id='book-form-button' type='submit'>Create Book</button>
+        <button id='create-book-button-form' type='submit'>Create Book</button>
     </form>
     );
 

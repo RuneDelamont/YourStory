@@ -40,11 +40,14 @@ export default function ChapterDetails() {
     const title = chapter?.title;
     const chapterPages = pages?.filter(page => page.book_id === book?.id);
 
+    if (!user) return (
+        <Redirect to='/' />
+    )
 
     if(!chapter) return (
         <NotFoundPage />
     )
-    
+
     return (
         <>
             <TemplatePage />

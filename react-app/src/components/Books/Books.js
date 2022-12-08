@@ -25,14 +25,18 @@ export default function Books() {
     return (
         <>
             <TemplatePage />
-            <div id='book-div'>
+            <div id='books-section'>
                 <h1 id='book-header'>Books</h1>
-                {books && Object.entries(books).map(([key, book]) => {
-                    return (<section className="book-sections" key={book.id}>
-                                <NavLink to={`/books/${book.id}`}><h3>{book.name}</h3></NavLink>
-                            </section>
+                <div id='book-div'>
+                    {books && Object.entries(books).map(([key, book]) => {
+                        return (<section className="book-sections" key={book.id}>
+                            <img id='book-section-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/Vintage-Book-Image.jpg' />
+                            <NavLink className='book-section-nav' to={`/books/${book.id}`}>{book.name}</NavLink>
+                        </section>
+                        )
+                    }
                     )}
-                )}
+                </div>
             </div>
         </>
     );

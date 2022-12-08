@@ -62,13 +62,22 @@ export default function EditBookForm({ setShowModal }) {
             <ul id='edit-book-form-errors'>
                 {Array.isArray(errors) && errors?.map((error, id) => <li key={id}>{error}</li>)}
             </ul>
+            <label for='edit-book-name'>Name</label>
             <input className='edit-book-form-text-input'
+                required
+                id='edit-book-name'
                 placeholder='Name'
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
-            <select className="edit-book-form-select" value={authorId} onChange={handleAuthorId}>
+            <label for='edit-book-author'>Author</label>
+            <select className="edit-book-form-select" 
+                required
+                id='edit-book-author'
+                value={authorId}
+                onChange={handleAuthorId}
+            >
                 {userAuthors?.map(author => {
                     return (
                         <option className="edit-book-author-option" key={author.id} value={author.id}>
@@ -77,7 +86,13 @@ export default function EditBookForm({ setShowModal }) {
                     )
                 })}
             </select>
-            <select className="edit-book-form-select" value={publishDate} onChange={handlePublishDate}>
+            <label for='edit-book-name'>Publish Date</label>
+            <select className="edit-book-form-select"
+                required
+                id='edit-book-name' 
+                value={publishDate} 
+                onChange={handlePublishDate}
+            >
                 {years?.map(year => {
                     return (
                         <option className="edit-book-year-option" key={year} value={year}>
@@ -86,7 +101,7 @@ export default function EditBookForm({ setShowModal }) {
                     )
                 })}
             </select>
-            <button id='edit-book-form-button' type='submit'>Create Author</button>
+            <button id='edit-book-form-button' type='submit'>Edit Book</button>
         </form>
     );
 }
