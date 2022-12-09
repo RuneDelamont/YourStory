@@ -9,7 +9,7 @@ export default function EditAutorModal() {
     return (
         <>
             <button id='edit-author-button' onClick={() => setShowModal(true)}>
-                Edit Author
+                Edit
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>

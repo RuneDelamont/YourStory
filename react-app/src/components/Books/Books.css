@@ -6,7 +6,6 @@
 
 #book-div{
     display: flex;
-    margin-top: 5rem;
     flex-direction: column;
     align-items: flex-start;
     /* margin-left: 3rem; */
@@ -50,9 +49,3 @@
 .book-section-nav:hover {
     text-decoration: underline;
 }
-
-/* .book-section-nav:active{
-    border: solid 1px black;
-    box-shadow: 0px 0px 14px 5px rgba(0, 0, 0, 0.47);
-    -webkit-box-shadow: 0px 0px 14px 5px rgba(0, 0, 0, 0.47);
-} */

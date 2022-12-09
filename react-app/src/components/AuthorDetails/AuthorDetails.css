@@ -6,45 +6,101 @@
     position: sticky;
 } */
 
-#author-container{
+#parent-container {
     display: flex;
-    margin-top: 5rem;
-    margin-left: 3rem;
+    justify-content: center;
+    align-content: center;
 }
 
-#author-pic{
+#button-div {
     display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    /* width: 50%;
+    background-color: #efefefe0; */
 }
 
-#author-details{
+#button-pic-container {
     display: flex;
     flex-direction: column;
+}
+
+#author-container {
+    display: flex;
+    /* margin-top: 5rem; */
+    /* margin-left: 3rem; */
     background-color: #efefefe0;
-    border: 1px solid #000000;
-    border-radius: 8px;
-    padding: 0.5rem 5rem 0.5rem 1rem;
+    align-items: center;
+    justify-content: space-around;
+    padding: 2rem;
+    box-shadow: 10px -1px 26px 7px rgb(0 0 0 / 47%);
+    -webkit-box-shadow: 10px -1px 26px 7px rgb(0 0 0 / 47%);
+}
+
+#author-pic {
+    display: flex;
+}
+
+#author-details-pic {
+    height: 200px;
+    width: 200px;
+    display: flex;
+}
+
+#author-details {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 2rem 0.5rem 2rem;
     width: 50%;
 }
 
 
-#author-lists{
-    margin-left: 3rem;
+#author-lists {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+    
 }
 
-#author-books{
+#author-books {
     display: flex;
     flex-direction: column;
-}
-
-.author-books-section{
+    width: 50%;
     background-color: #efefefe0;
-    margin-top: 2.5rem;
-    border: 1px solid #000000;
-    border-radius: 8px;
-    padding: 1rem;
-    width: 20%;
+    padding: 2rem;
+    box-shadow: 10px -1px 26px 7px rgb(0 0 0 / 47%);
+    -webkit-box-shadow: 10px -1px 26px 7px rgb(0 0 0 / 47%);
+    margin-bottom: 3rem;
 }
 
-.author-subheaders{
+.author-books-section {
+    display: flex;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    /* width: 20%; */
+}
+
+.author-subheaders {
+    text-align: center;
     margin-top: 3rem;
+}
+
+.author-books-nav {
+    margin-left: 1rem;
+    display: flex;
+    align-items: flex-end;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+}
+
+.author-books-nav:hover {
+    text-decoration: underline;
+}
+
+#author-book-section-pic {
+    height: 64px;
+    width: 64px;
 }

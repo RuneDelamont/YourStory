@@ -24,7 +24,6 @@ export default function ChapterDetails() {
     const pages = useSelector(state => Object.values(state.pages));
 
     const chapter = useSelector(state => state.chapters[chapterId]);
-    console.log(chapter)
 
     const dispatch = useDispatch();
 
@@ -40,9 +39,9 @@ export default function ChapterDetails() {
     const title = chapter?.title;
     const chapterPages = pages?.filter(page => page.book_id === book?.id);
 
-    if (!user) return (
-        <Redirect to='/' />
-    )
+    // if (!user) return (
+    //     <Redirect to='/' />
+    // )
 
     if(!chapter) return (
         <NotFoundPage />

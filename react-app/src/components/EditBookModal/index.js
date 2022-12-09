@@ -9,7 +9,7 @@ export default function EditBookModal() {
     return (
         <>
             <button id='edit-book-button' onClick={() => setShowModal(true)}>
-                Edit Book
+                Edit
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>

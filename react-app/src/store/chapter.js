@@ -113,7 +113,7 @@ export const thunkCreateChapter = (chapter) => async (dispatch) => {
 
 export const thunkUpdateChapter = (chapter) => async (dispatch) => {
     // fetch 
-    const res = await fetch(`/api/chapters/${chapter.id}/`, {
+    const res = await fetch(`/api/chapters/${chapter.id}`, {
         method: "PUT",
         headers: {
             "content-type": "application/json"
@@ -133,17 +133,17 @@ export const thunkUpdateChapter = (chapter) => async (dispatch) => {
     return null;
 }
 
-export const thunkDeleteChapter = (id) => async (dispatch) => {
+export const thunkDeleteChapter = (chapter) => async (dispatch) => {
     // fetch
-    const res = await fetch(`/api/chapters/${id}/`,{
+    const res = await fetch(`/api/chapters/${chapter.id}`,{
         method: "DELETE"
     });
     
     // if res.status === 200 delete
     if(res.ok){
-        dispatch(deleteChapter(id))
-        return null;
+        dispatch(deleteChapter(chapter.id))
     }
+    return null;
 }
 // Reducer //
 

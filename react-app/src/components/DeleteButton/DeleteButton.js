@@ -43,9 +43,10 @@ export default function DeleteButton(){
         }
 
         if(chapterId) {
-            let chapter = chapters?.filter(chapter => chapter.id === chapterId);
+            let chapter = chapters?.find(chapter => chapter.id === chapterId);
+            let book = books?.find(book => book.id === chapter.book_id)
             dispatch(chapterActions.thunkDeleteChapter(chapter));
-            history.push(`/books/${chapter.book_id}`);
+            history.push(`/books/${book.id}`);
         }
     }
 

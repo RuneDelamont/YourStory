@@ -37,43 +37,51 @@ export default function AuthorDetails() {
     const authorFirstName = author?.first_name;
     const authorLastName = author?.last_name;
     const authorPenName = author?.pen_name;
-    const authorEmail = author?.email; 
+    const authorEmail = author?.email;
     const authorUserID = author?.user_id;
 
-    if (!user) return (
-        <Redirect to='/' />
-    )
-    
-    if(!author)  return (
+    // if (!user) return (
+    //     <Redirect to='/' />
+    // )
+
+    if (!author) return (
         <NotFoundPage />
     )
 
     return (
         <>
             <TemplatePage />
-            {(authorUserID === user?.id) && (
-                <>
-                    <EditAutorModal author={authorId}/>
-                    <DeleteButton />
-                </>
-            )}
-            <div id='author-container'>
-                <img id='author-details-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/writer_sihoutte.jpeg' />
-                <section id='author-details'>
-                    <h2> Author</h2>
-                    <p className='author-text'>pen name: {authorFirstName}</p>
-                    <p className='author-text'>first name: {authorLastName}</p>
-                    <p className='author-text'>last name: {authorPenName}</p>
-                    <p className='author-text'>email: {authorEmail}</p>
-                </section>
+
+            <div id='parent-container'>
+                <div id='author-container'>
+                    <div id='button-pic-container'>
+
+                        {(authorUserID === user?.id) && (
+                            <div id='button-div'>
+
+                                <EditAutorModal author={authorId} />
+                                <DeleteButton />
+                            </div>
+                        )}
+                        <img id='author-details-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/writer_sihoutte.jpeg' />
+                    </div>
+                    <section id='author-details'>
+                        <h2>Author</h2>
+                        <p className='author-text'>first name: {authorFirstName}</p>
+                        <p className='author-text'>last name: {authorLastName}</p>
+                        <p className='author-text'>pen name: {authorPenName}</p>
+                        <p className='author-text'>email: {authorEmail}</p>
+                    </section>
+                </div>
             </div>
             <div id='author-lists'>
                 <div id='author-books'>
-                    <h3 className='author-subheaders'>Books</h3>
+                    <h2 className='author-subheaders'>Books</h2>
                     {authorBooks && authorBooks.map(book => {
                         return (
                             <section className='author-books-section' key={book.id}>
-                                <NavLink to={`/books/${book.id}`}>{book.name}</NavLink>
+                                <img id='author-book-section-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/Vintage-Book-Image.jpg' />
+                                <NavLink className='author-books-nav' to={`/books/${book.id}`}>{book.name}</NavLink>
                             </section>
                         )
                     })}
