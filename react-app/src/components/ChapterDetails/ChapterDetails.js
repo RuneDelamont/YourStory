@@ -7,6 +7,7 @@ import * as bookActions from '../../store/book';
 import * as chapterActions from '../../store/chapter';
 import * as pageActions from '../../store/page';
 import TemplatePage from '../TemplatePage';
+import NotAuthorizedPage from '../NotAuthorizedPage';
 import EditBookModal from '../EditBookModal';
 import DeleteButton from '../DeleteButton';
 
@@ -43,44 +44,89 @@ export default function ChapterDetails() {
     //     <Redirect to='/' />
     // )
 
-    if (!chapter) return (
-        <NotFoundPage />
-    )
+    // if (!chapter) return (
+    //     <NotFoundPage />
+    // )
 
-    return (
-        <>
-            <TemplatePage />
-            <div id='chapter-parent-container'>
-                <div id='chapter-container'>
-                    <div id='chapter-into-container'>
-                        {(chapter?.user_id === user?.id) && (
-                            <div id='chapter-button-div'>
-                                {/* <EditBookModal /> */}
-                                <DeleteButton />
+
+    let ChapterDetailsPage = (
+        user ?
+            chapter ?
+                <>
+                    <TemplatePage />
+                    <div id='chapter-parent-container'>
+                        <div id='chapter-container'>
+                            <div id='chapter-into-container'>
+                                {(chapter?.user_id === user?.id) && (
+                                    <div id='chapter-button-div'>
+                                        {/* <EditBookModal /> */}
+                                        <DeleteButton />
+                                    </div>
+                                )}
+                                <section id='chapter-details'>
+                                    <h1 className='chapter-text'>{book?.name}</h1>
+                                    <h2 className='chapter-text'>{title}</h2>
+                                </section>
                             </div>
-                        )}
-                        <section id='chapter-details'>
-                            <h1 className='chapter-text'>{book?.name}</h1>
-                            <h2 className='chapter-text'>{title}</h2>
-                        </section>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div id='chapter-lists'>
-                <div id='chapter-chapters'>
-                    {chapterPages && chapterPages?.map((page, index) => {
-                        return (
-                            <section className='page-section' key={page.id}>
-                                <div className='words-container'>
-                                    <h3 className='chapter-details-subheader'>Page {index + 1}</h3>
-                                    <p className='page'>{page.page_words}</p>
-                                </div>
-                            </section>
-                        )
-                    })}
-                </div>
-            </div>
-        </>
-    );
+                    <div id='chapter-lists'>
+                        <div id='chapter-chapters'>
+                            {chapterPages && chapterPages?.map((page, index) => {
+                                return (
+                                    <section className='page-section' key={page.id}>
+                                        <div className='words-container'>
+                                            <h3 className='chapter-details-subheader'>Page {index + 1}</h3>
+                                            <p className='page'>{page.page_words}</p>
+                                        </div>
+                                    </section>
+                                )
+                            })}
+                        </div>
+                    </div>
+                </>
+                :
+                <></>
+            :
+        <></>
+    )
+    return ChapterDetailsPage;
+
+
+    // return (
+    //     <>
+    //         <TemplatePage />
+    //         <div id='chapter-parent-container'>
+    //             <div id='chapter-container'>
+    //                 <div id='chapter-into-container'>
+    //                     {(chapter?.user_id === user?.id) && (
+    //                         <div id='chapter-button-div'>
+    //                             {/* <EditBookModal /> */}
+    //                             <DeleteButton />
+    //                         </div>
+    //                     )}
+    //                     <section id='chapter-details'>
+    //                         <h1 className='chapter-text'>{book?.name}</h1>
+    //                         <h2 className='chapter-text'>{title}</h2>
+    //                     </section>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //         <div id='chapter-lists'>
+    //             <div id='chapter-chapters'>
+    //                 {chapterPages && chapterPages?.map((page, index) => {
+    //                     return (
+    //                         <section className='page-section' key={page.id}>
+    //                             <div className='words-container'>
+    //                                 <h3 className='chapter-details-subheader'>Page {index + 1}</h3>
+    //                                 <p className='page'>{page.page_words}</p>
+    //                             </div>
+    //                         </section>
+    //                     )
+    //                 })}
+    //             </div>
+    //         </div>
+    //     </>
+    // );
 
 }

@@ -7,6 +7,7 @@ import * as sessionActions from '../../store/session';
 import TemplatePage from "../TemplatePage";
 
 import "./Authors.css"
+import NotAuthorizedPage from "../NotAuthorizedPage";
 
 
 export default function Authors() {
@@ -23,22 +24,46 @@ export default function Authors() {
     //     <Redirect to='/' />
     // )
 
-    return (
-        <>
-            <TemplatePage />
-            <div id='authors-section'>
-                <h1 id='author-header'>Authors</h1>
-                <div id='author-div'>
-                    {authors && Object.entries(authors).map(([key, author]) => {
-                        return (<section className="author-sections" key={author.id}>
-                            <img id='author-section-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/writer_sihoutte.jpeg' />
-                            <NavLink className='author-section-nav' to={`/authors/${author.id}`}>{author.first_name} {author.last_name}</NavLink>
-                        </section>
-                        )
-                    }
-                    )}
+    let AuthorsPage = (
+        user ?
+            <>
+                <TemplatePage />
+                <div id='authors-section'>
+                    <h1 id='author-header'>Authors</h1>
+                    <div id='author-div'>
+                        {authors && Object.entries(authors).map(([key, author]) => {
+                            return (<section className="author-sections" key={author.id}>
+                                <img id='author-section-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/writer_sihoutte.jpeg' />
+                                <NavLink className='author-section-nav' to={`/authors/${author.id}`}>{author.first_name} {author.last_name}</NavLink>
+                            </section>
+                            )
+                        }
+                        )}
+                    </div>
                 </div>
-            </div>
-        </>
-    );
+            </>
+            :
+            <></>
+    )
+
+    return AuthorsPage;
+
+    // return (
+    //     <>
+    //         <TemplatePage />
+    //         <div id='authors-section'>
+    //             <h1 id='author-header'>Authors</h1>
+    //             <div id='author-div'>
+    //                 {authors && Object.entries(authors).map(([key, author]) => {
+    //                     return (<section className="author-sections" key={author.id}>
+    //                         <img id='author-section-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/writer_sihoutte.jpeg' />
+    //                         <NavLink className='author-section-nav' to={`/authors/${author.id}`}>{author.first_name} {author.last_name}</NavLink>
+    //                     </section>
+    //                     )
+    //                 }
+    //                 )}
+    //             </div>
+    //         </div>
+    //     </>
+    // );
 }

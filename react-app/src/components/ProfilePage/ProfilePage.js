@@ -44,51 +44,101 @@ export default function ProfilePage() {
     //     <Redirect to='/' />
     // )
 
-
-    return (
-        <>
-            <TemplatePage />
-            <div id='button-container'>
-                <CreateAuthorModal />
-                {userAuthors && (
-                    <CreateBookModal />
-                )}
-            </div>
-            <div id='profile-container'>
-                <div id='profile-pic'>
+    let ProfilePage = (
+        user ?
+            <>
+                <TemplatePage />
+                <div id='button-container'>
+                    <CreateAuthorModal />
+                    {userAuthors && (
+                        <CreateBookModal />
+                    )}
                 </div>
-                <section id='profile-details'>
-                    <h2> Profile</h2>
-                    <p className='profile-text'>user name: {userName}</p>
-                    <p className='profile-text'>first name: {userFirstName}</p>
-                    <p className='profile-text'>last name: {userLastName}</p>
-                    <p className='profile-text'>email: {userEmail}</p>
-                </section>
-            </div>
-            <div id='profile-lists'>
-                <div id='profile-authors'>
-                    <h3 className='profile-subheaders'>Authors</h3>
-                    {userAuthors && userAuthors.map(author => {
-                        return (
-                            <section className='profile-authors-section' key={author.id}>
-                                <img className='author-profile-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/writer_sihoutte.jpeg' />
-                                <NavLink className='profile-nav' to={`/authors/${author.id}`}>{author.pen_name}</NavLink>
-                            </section>
-                        )
-                    })}
+                <div id='profile-container'>
+                    <div id='profile-pic'>
+                    </div>
+                    <section id='profile-details'>
+                        <h2> Profile</h2>
+                        <p className='profile-text'>user name: {userName}</p>
+                        <p className='profile-text'>first name: {userFirstName}</p>
+                        <p className='profile-text'>last name: {userLastName}</p>
+                        <p className='profile-text'>email: {userEmail}</p>
+                    </section>
                 </div>
-                <div id='profile-books'>
-                    <h3 className='profile-subheaders'>Books</h3>
-                    {userBooks && userBooks.map(book => {
-                        return (
-                            <section className='profile-books-section' key={book.id}>
-                                <img className='book-profile-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/Vintage-Book-Image.jpg' />
-                                <NavLink className='profile-nav' to={`/books/${book.id}`}>{book.name}</NavLink>
-                            </section>
-                        )
-                    })}
+                <div id='profile-lists'>
+                    <div id='profile-authors'>
+                        <h3 className='profile-subheaders'>Authors</h3>
+                        {userAuthors && userAuthors.map(author => {
+                            return (
+                                <section className='profile-authors-section' key={author.id}>
+                                    <img className='author-profile-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/writer_sihoutte.jpeg' />
+                                    <NavLink className='profile-nav' to={`/authors/${author.id}`}>{author.pen_name}</NavLink>
+                                </section>
+                            )
+                        })}
+                    </div>
+                    <div id='profile-books'>
+                        <h3 className='profile-subheaders'>Books</h3>
+                        {userBooks && userBooks.map(book => {
+                            return (
+                                <section className='profile-books-section' key={book.id}>
+                                    <img className='book-profile-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/Vintage-Book-Image.jpg' />
+                                    <NavLink className='profile-nav' to={`/books/${book.id}`}>{book.name}</NavLink>
+                                </section>
+                            )
+                        })}
+                    </div>
                 </div>
-            </div>
-        </>
+            </>
+            :
+        <></>
     )
+
+    return ProfilePage;
+    // return (
+    //     <>
+    //         <TemplatePage />
+    //         <div id='button-container'>
+    //             <CreateAuthorModal />
+    //             {userAuthors && (
+    //                 <CreateBookModal />
+    //             )}
+    //         </div>
+    //         <div id='profile-container'>
+    //             <div id='profile-pic'>
+    //             </div>
+    //             <section id='profile-details'>
+    //                 <h2> Profile</h2>
+    //                 <p className='profile-text'>user name: {userName}</p>
+    //                 <p className='profile-text'>first name: {userFirstName}</p>
+    //                 <p className='profile-text'>last name: {userLastName}</p>
+    //                 <p className='profile-text'>email: {userEmail}</p>
+    //             </section>
+    //         </div>
+    //         <div id='profile-lists'>
+    //             <div id='profile-authors'>
+    //                 <h3 className='profile-subheaders'>Authors</h3>
+    //                 {userAuthors && userAuthors.map(author => {
+    //                     return (
+    //                         <section className='profile-authors-section' key={author.id}>
+    //                             <img className='author-profile-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/writer_sihoutte.jpeg' />
+    //                             <NavLink className='profile-nav' to={`/authors/${author.id}`}>{author.pen_name}</NavLink>
+    //                         </section>
+    //                     )
+    //                 })}
+    //             </div>
+    //             <div id='profile-books'>
+    //                 <h3 className='profile-subheaders'>Books</h3>
+    //                 {userBooks && userBooks.map(book => {
+    //                     return (
+    //                         <section className='profile-books-section' key={book.id}>
+    //                             <img className='book-profile-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/Vintage-Book-Image.jpg' />
+    //                             <NavLink className='profile-nav' to={`/books/${book.id}`}>{book.name}</NavLink>
+    //                         </section>
+    //                     )
+    //                 })}
+    //             </div>
+    //         </div>
+    //     </>
+    // )
 }

@@ -7,6 +7,7 @@ import * as sessionActions from '../../store/session';
 import TemplatePage from "../TemplatePage";
 
 import "./Books.css";
+import NotAuthorizedPage from "../NotAuthorizedPage";
 
 export default function Books() {
     const user = useSelector(state => state.session.user);
@@ -18,26 +19,49 @@ export default function Books() {
         dispatch(bookActions.thunkGetBooks());
     }, [dispatch]);
 
-    if (!user) return (
-        <Redirect to='/' />
+    // if (!user) return (
+    //     <Redirect to='/' />
+    // )
+
+    let BookForm = (
+        user ?
+            <>
+                <TemplatePage />
+                <div id='books-section'>
+                    <h1 id='book-header'>Books</h1>
+                    <div id='book-div'>
+                        {books && Object.entries(books).map(([key, book]) => {
+                            return (<section className="book-sections" key={book.id}>
+                                <img id='book-section-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/Vintage-Book-Image.jpg' />
+                                <NavLink className='book-section-nav' to={`/books/${book.id}`}>{book.name}</NavLink>
+                            </section>
+                            )
+                        }
+                        )}
+                    </div>
+                </div>
+            </>
+        :
+        <></>
     )
 
-    return (
-        <>
-            <TemplatePage />
-            <div id='books-section'>
-                <h1 id='book-header'>Books</h1>
-                <div id='book-div'>
-                    {books && Object.entries(books).map(([key, book]) => {
-                        return (<section className="book-sections" key={book.id}>
-                            <img id='book-section-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/Vintage-Book-Image.jpg' />
-                            <NavLink className='book-section-nav' to={`/books/${book.id}`}>{book.name}</NavLink>
-                        </section>
-                        )
-                    }
-                    )}
-                </div>
-            </div>
-        </>
-    );
+    return BookForm;
+    // return (
+    //     <>
+    //         <TemplatePage />
+    //         <div id='books-section'>
+    //             <h1 id='book-header'>Books</h1>
+    //             <div id='book-div'>
+    //                 {books && Object.entries(books).map(([key, book]) => {
+    //                     return (<section className="book-sections" key={book.id}>
+    //                         <img id='book-section-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/Vintage-Book-Image.jpg' />
+    //                         <NavLink className='book-section-nav' to={`/books/${book.id}`}>{book.name}</NavLink>
+    //                     </section>
+    //                     )
+    //                 }
+    //                 )}
+    //             </div>
+    //         </div>
+    //     </>
+    // );
 }

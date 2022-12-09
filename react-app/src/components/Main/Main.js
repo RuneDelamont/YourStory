@@ -41,21 +41,39 @@ export default function Main({ loaded }) {
         dispatch(pageActions.thunkGetPages());
     }, [dispatch]);
 
-    if (!user) return (
-        <Redirect to='/' />
+    // if (!user) return (
+    //     <Redirect to='/' />
+    // )
+
+    let MainPage = (
+        user ?
+            <>
+                <Navigation />
+                <img id='book-image' src="https://your-story-bucket.s3.us-west-1.amazonaws.com/flipping-pages.jpg" />
+                <section id='main-section'>
+                    <h1 className='main-title'>Authors</h1>
+                    <Carousel slides={authorNames} />
+
+                    <h1 className='main-title'>Books</h1>
+                    <Carousel slides={bookTitles} />
+                </section>
+            </>
+            :
+        <></>
     )
+    return loaded && MainPage;
 
-    return loaded && (
-        <>
-            <Navigation />
-            <img id='book-image' src="https://your-story-bucket.s3.us-west-1.amazonaws.com/flipping-pages.jpg" />
-            <section id='main-section'>
-                <h1 className='main-title'>Authors</h1>
-                <Carousel slides={authorNames} />
+    // return loaded && (
+    //     <>
+    //         <Navigation />
+    //         <img id='book-image' src="https://your-story-bucket.s3.us-west-1.amazonaws.com/flipping-pages.jpg" />
+    //         <section id='main-section'>
+    //             <h1 className='main-title'>Authors</h1>
+    //             <Carousel slides={authorNames} />
 
-                <h1 className='main-title'>Books</h1>
-                <Carousel slides={bookTitles} />
-            </section>
-        </>
-    );
+    //             <h1 className='main-title'>Books</h1>
+    //             <Carousel slides={bookTitles} />
+    //         </section>
+    //     </>
+    // );
 }
