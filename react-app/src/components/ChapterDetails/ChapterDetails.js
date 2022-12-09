@@ -43,34 +43,38 @@ export default function ChapterDetails() {
     //     <Redirect to='/' />
     // )
 
-    if(!chapter) return (
+    if (!chapter) return (
         <NotFoundPage />
     )
 
     return (
         <>
             <TemplatePage />
-            {(chapter?.user_id === user?.id) && (
-                <>
-                    {/* <EditBookModal /> */}
-                    <DeleteButton/>
-                </>
-            )}
-            <div id='chapter-container'>
-                <div id='chapter-pic'>
+            <div id='chapter-parent-container'>
+                <div id='chapter-container'>
+                    <div id='chapter-into-container'>
+                        {(chapter?.user_id === user?.id) && (
+                            <div id='chapter-button-div'>
+                                {/* <EditBookModal /> */}
+                                <DeleteButton />
+                            </div>
+                        )}
+                        <section id='chapter-details'>
+                            <h1 className='chapter-text'>{book?.name}</h1>
+                            <h2 className='chapter-text'>{title}</h2>
+                        </section>
+                    </div>
                 </div>
-                <section id='chapter-details'>
-                    <p className='chapter-text'>Book: {book?.name}</p>
-                    <p className='chapter-text'>title: {title}</p>
-                </section>
             </div>
             <div id='chapter-lists'>
                 <div id='chapter-chapters'>
-                    <h3 className='chapter-subheaders'>Chapters</h3>
                     {chapterPages && chapterPages?.map((page, index) => {
                         return (
                             <section className='page-section' key={page.id}>
-                                <p>{index + 1}. {page.page_words}</p>
+                                <div className='words-container'>
+                                    <h3 className='chapter-details-subheader'>Page {index + 1}</h3>
+                                    <p className='page'>{page.page_words}</p>
+                                </div>
                             </section>
                         )
                     })}
