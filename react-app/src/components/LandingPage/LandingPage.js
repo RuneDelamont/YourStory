@@ -42,6 +42,14 @@ const LandingPage = () => {
                                 <SignUpFormModal />
                                 <DemoUser />
                             </div>
+                            <aside id="social-logos">
+                                <a href="https://github.com/RuneDelamont">
+                                    <img id="github-logo" src="https://your-story-bucket.s3.us-west-1.amazonaws.com/github_white_logo.png" />
+                                </a>
+                                <a href="https://www.linkedin.com/in/brian-moore-2829b496/">
+                                    <p id="linked-in-logo">in</p>
+                                </a>
+                            </aside>
                         </div>
                     </div>
                 </div>

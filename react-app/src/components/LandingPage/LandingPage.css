@@ -51,3 +51,26 @@
     justify-content: center;
     /* align-items: center; */
 }
+
+#social-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#github-logo {
+    height: 43px;
+    width: 64px;
+}
+
+#linked-in-logo {
+    font-weight: 600;
+    font-size: 2.8rem;
+    color: white;
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+}
