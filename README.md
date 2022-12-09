@@ -1,144 +1,78 @@
-# Flask React Project
+# Your Story
 
-This is the starter for the Flask React project.
+Live Deployment: https://your-story.onrender.com
 
-## Getting started
-1. Clone this repository (only this branch)
+Github: https://github.com/RuneDelamont/YourStory
 
-2. Install dependencies
-
+## Set up
+1. Clone this repository
+2. Install dependencies 
+      - In the app directory run:
+      
       ```bash
-      pipenv install -r requirements.txt
+      pipenv install
+      pipenv shell
+      flask db init
+      flask db migrate
+      flask seed all
+      ```
+      - In the react-app directory run:
+      
+      ```
+      npm install
+      ```
+3. Run Environment
+      - After the dependencies are installed run in the app directory
+      
+      ```
+      flask run
+      ```
+      - In react app run
+      
+      ```
+      npm start
       ```
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
+# Your Story
 
-4. Make sure the SQLite3 database connection URL is in the **.env** file
+This app allows users to create books under authors that they create.  The primary features enabled are the creation of authors and books.  You will be able to create, update, read and delete them.  You will be able to read each individual book chapter by chapter.
+<br>
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention**.
+## Landing Page
 
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
+The landing page allows you to create a new user, login or just try with the built in demo user.
 
-   ```bash
-   pipenv shell
-   ```
+![intro_page](https://user-images.githubusercontent.com/69321727/206790763-88f80e31-4eba-4a16-bb42-55fa3a8633bd.png)
 
-   ```bash
-   flask db upgrade
-   ```
+## Main page
 
-   ```bash
-   flask seed all
-   ```
+The main page allows you to peruse the potential selection of available authors and books via a carousel component.
 
-   ```bash
-   flask run
-   ```
+![main_page](https://user-images.githubusercontent.com/69321727/206791149-f0f8bf08-b497-43dd-a45f-ca0ac81a0323.png)
 
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+## Profile Page
+
+User profile is accessible via the profile logo in the top right corner.  Click to open the dropdown menu and then click on the my profile button.
+
+![profile_page](https://user-images.githubusercontent.com/69321727/206791886-a941a033-c6a8-429f-890d-4edb08e79f82.png)
 
 
-## Deployment through Render.com
+## Authors and Books pages
 
-First, refer to your Render.com deployment articles for more detailed
-instructions about getting started with [Render.com], creating a production
-database, and deployment debugging tips.
+Both authors and books each have their own individual page list all available authors and books.  Click on either in the navigation and you can view their listing.
 
-From the [Dashboard], click on the "New +" button in the navigation bar, and
-click on "Web Service" to create the application that will be deployed.
+![authors_page](https://user-images.githubusercontent.com/69321727/206792406-8a93ae01-c0af-49a2-9c50-a21b1ad68f05.png)
 
-Look for the name of the application you want to deploy, and click the "Connect"
-button to the right of the name.
 
-Now, fill out the form to configure the build and start commands, as well as add
-the environment variables to properly deploy the application.
+## Author, Book and Chapter pages
 
-### Part A: Configure the Start and Build Commands
+Each author, book and chapter have their own individual pages.  Authors will give you relevant author information as well as a list of books.  Each Book will have information on the book as well as the list of chapters.  Each chapter will have each page available for reading.  If the user has ownership over any of the above items, you will have the option to edit or delete each item.
 
-Start by giving your application a name.
+![edit_delete_pic](https://user-images.githubusercontent.com/69321727/206793069-ee582731-4ab5-4683-b718-7a112e58ee4b.png)
 
-Leave the root directory field blank. By default, Render will run commands from
-the root directory.
 
-Make sure the Environment field is set set to "Python 3", the Region is set to
-the location closest to you, and the Branch is set to "main".
+## Logout
 
-Next, add your Build command. This is a script that should include everything
-that needs to happen _before_ starting the server.
+Logging out is easy.  You can simply log out by clicking on the profile button on the navigation and clicking on the logout button.
 
-For your Flask project, enter the following command into the Build field, all in
-one line:
-
-```shell
-# build command - enter all in one line
-npm install --prefix react-app &&
-npm run build --prefix react-app &&
-pip install -r requirements.txt &&
-pip install psycopg2 &&
-flask db upgrade &&
-flask seed all
-```
-
-This script will install dependencies for the frontend, and run the build
-command in the __package.json__ file for the frontend, which builds the React
-application. Then, it will install the dependencies needed for the Python
-backend, and run the migration and seed files.
-
-Now, add your start command in the Start field:
-
-```shell
-# start script
-gunicorn app:app
-```
-
-### Part B: Add the Environment Variables
-
-Click on the "Advanced" button at the bottom of the form to configure the
-environment variables your application needs to access to run properly. In the
-development environment, you have been securing these variables in the __.env__
-file, which has been removed from source control. In this step, you will need to
-input the keys and values for the environment variables you need for production
-into the Render GUI.
-
-Click on "Add Environment Variable" to start adding all of the variables you
-need for the production environment.
-
-Add the following keys and values in the Render GUI form:
-
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-- REACT_APP_BASE_URL (use render.com url, located at top of page, similar to
-  https://this-application-name.onrender.com)
-
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
-
-Add the following keys and values:
-
-- DATABASE_URL (copy value from Internal Database URL field)
-
-_Note: Add any other keys and values that may be present in your local __.env__
-file. As you work to further develop your project, you may need to add more
-environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment._
-
-Next, choose "Yes" for the Auto-Deploy field. This will re-deploy your
-application every time you push to main.
-
-Now, you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your build and
-start commands being executed, and see any errors in the build process.
-
-When deployment is complete, open your deployed site and check to see if you
-successfully deployed your Flask application to Render! You can find the URL for
-your site just below the name of the Web Service at the top of the page.
-
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+![logout](https://user-images.githubusercontent.com/69321727/206793542-ad65de68-0a67-4750-a445-59c0815c7ef1.png)
