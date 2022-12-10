@@ -4,6 +4,15 @@ Live Deployment: https://your-story.onrender.com
 
 Github: https://github.com/RuneDelamont/YourStory
 
+### Technology
+- Javascript
+- React
+- html
+- css
+- Python 3
+- Flask
+- SQL Alchemy
+
 ## Set up
 1. Clone this repository
 2. Install dependencies 
