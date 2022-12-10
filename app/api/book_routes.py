@@ -150,6 +150,16 @@ def update_book_by_id(book_id):
     
     form = BookForm()
     
+    # if form.data fields are whitespace error
+    if(form.data['name'].strip() == '' or form.data['name'] is None):
+        return {'errors': ['Invalid name']}, 400
+    
+    # if(form.data['author_id'].strip() == '' or form.data['author_id'] is None):
+    #     return {'errors': ['Invalid author id']}, 400
+    
+    # if(form.data['publish_date'].strip() == '' or form.data['publish_date'] is None):
+    #     return {'errors': ['Invalid publish date']}, 400
+    
     # update book
     book.author_id = form.data['author_id']
     book.name = form.data['name']

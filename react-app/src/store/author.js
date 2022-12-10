@@ -55,7 +55,7 @@ export const thunkGetAuthors = () => async (dispatch) => {
     // get all authors
     const res = await fetch('/api/authors/');
 
-    if(res.ok){
+    if (res.ok) {
         const authorData = await res.json();
 
         // dispatch authors
@@ -66,11 +66,11 @@ export const thunkGetAuthors = () => async (dispatch) => {
 }
 
 // Get author
-export const thunkGetAuthor = (id) => async(dispatch) => {
+export const thunkGetAuthor = (id) => async (dispatch) => {
     // get author
     const res = await fetch(`/api/authors/${id}`);
 
-    if(res.ok){
+    if (res.ok) {
         // json author
         const author = await res.json();
 
@@ -100,10 +100,10 @@ export const thunkGetAuthor = (id) => async(dispatch) => {
 // }
 
 // Create an author
-export const thunkCreateAuthor = (author) => async(dispatch) => {
+export const thunkCreateAuthor = (author) => async (dispatch) => {
     // const { first_name, last_name, pen_name, email } = author;
 
-    const res = await fetch(`/api/authors/`, { 
+    const res = await fetch(`/api/authors/`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -111,43 +111,55 @@ export const thunkCreateAuthor = (author) => async(dispatch) => {
         body: JSON.stringify(author)
     });
 
-    if(res.ok) {
+    if (res.ok) {
         const newAuthor = await res.json();
 
         dispatch(createAuthor(newAuthor));
 
         return newAuthor;
+    } else if (res.status < 500) {
+        const data = await res.json();
+        if (data.errors) {
+            return data.errors;
+        }
+    } else {
+        return ['An error occurred. Please try again.']
     }
-
-    return null;
 }
 
 // edit author
 export const thunkPutAuthor = (author, authorId) => async (dispatch) => {
-    // // destructure get id
-    // const { id } = author;
-    
+
+
     // fetch
     const res = await fetch(`/api/authors/${authorId}`, {
         method: "PUT",
         headers: {
-            'content-type' : 'application/json'
+            'content-type': 'application/json'
         },
         body: JSON.stringify(author)
     });
 
-    if(res.ok){
+    if (res.ok) {
         const editedAuthor = await res.json();
         dispatch(createAuthor(editedAuthor));
 
         return editedAuthor;
-    }
 
-    return null;
+        //else print errors 
+    } else if (res.status < 500) {
+
+        const data = await res.json();
+        if (data.errors) {
+            return data.errors;
+        }
+    } else {
+        return ['An error occurred. Please try again.']
+    }
 }
 
 
-export const thunkDeleteAuthor = (author) => async(dispatch) => {
+export const thunkDeleteAuthor = (author) => async (dispatch) => {
     // fetch
 
     const res = await fetch(`/api/authors/${author.id}`, {
@@ -169,9 +181,9 @@ const initialState = {};
 
 export default function authorReducer(state = initialState, action) {
     const newAuthors = { ...state };
-    
-    switch(action.type) {
-        
+
+    switch (action.type) {
+
         case DELETE_AUTHOR:
             delete newAuthors[action.id];
 

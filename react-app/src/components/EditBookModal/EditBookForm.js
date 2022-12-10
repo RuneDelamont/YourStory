@@ -35,7 +35,6 @@ export default function EditBookForm({ setShowModal }) {
     for (let i = 1980; i <= currentYear; i++) {
         years.push(i);
     }
-    // console.log(years);
 
     const submitAction = async e => {
         e.preventDefault();
@@ -49,11 +48,12 @@ export default function EditBookForm({ setShowModal }) {
         };
 
         const data = await dispatch(bookActions.thunkEditBook(book, bookId));
-        if (data) {
+        if (Array.isArray(data)) {
             setErrors(data);
+        }else {
+            await dispatch(bookActions.thunkGetBooks());
+            setShowModal(false);
         }
-        await dispatch(bookActions.thunkGetBooks());
-        setShowModal(false);
     }
 
     return (
@@ -62,16 +62,16 @@ export default function EditBookForm({ setShowModal }) {
             <ul id='edit-book-form-errors'>
                 {Array.isArray(errors) && errors?.map((error, id) => <li key={id}>{error}</li>)}
             </ul>
-            <label for='edit-book-name'>Name</label>
+            <label htmlFor='edit-book-name'>Name</label>
             <input className='edit-book-form-text-input'
                 required
                 id='edit-book-name'
-                placeholder='Name'
+                placeholder={book.name}
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
-            <label for='edit-book-author'>Author</label>
+            <label htmlFor='edit-book-author'>Author</label>
             <select className="edit-book-form-select" 
                 required
                 id='edit-book-author'
@@ -86,7 +86,7 @@ export default function EditBookForm({ setShowModal }) {
                     )
                 })}
             </select>
-            <label for='edit-book-name'>Publish Date</label>
+            <label htmlFor='edit-book-name'>Publish Date</label>
             <select className="edit-book-form-select"
                 required
                 id='edit-book-name' 

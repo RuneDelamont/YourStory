@@ -30,7 +30,7 @@ export default function CreateBookForm(){
     const handlePublishDate = e => {
         setPublishDate(e.target.value);
     }
-    // console.log(userAuthors);
+
     const years = [];
     for( let i = 1980; i <= currentYear; i++){
         years.push(i);
@@ -48,11 +48,13 @@ export default function CreateBookForm(){
         };
 
         const data = await dispatch(bookActions.thunkCreateBook(book));
-        if(data){
+        
+        if(Array.isArray(data)){
             setErrors(data);
+        }else {
+            await dispatch(bookActions.thunkGetBooks());
+            await history.push('/books');
         }
-        await dispatch(bookActions.thunkGetBooks());
-        await history.push('/books');
     }
 
     return (
@@ -61,7 +63,7 @@ export default function CreateBookForm(){
         <ul id='create-book-form-errors'>
             {Array.isArray(errors) && errors?.map((error, id) => <li key={id}>{error}</li>)}
         </ul>
-        <label for="create-book-form-name">Name</label>
+        <label htmlFor="create-book-form-name">Name</label>
         <input className='create-book-form-text-input'
             id="create-book-form-name"
             required
@@ -70,7 +72,7 @@ export default function CreateBookForm(){
             value={name}
             onChange={(e) => setName(e.target.value)}
         />
-        <label for="create-book-form-author-id">Author</label>
+        <label htmlFor="create-book-form-author-id">Author</label>
         <select 
             className="create-book-form-select" 
             id="create-book-form-author-id"
@@ -86,7 +88,7 @@ export default function CreateBookForm(){
                 )
             })}
         </select>
-        <label for="create-book-form-publish-date">Publish Date</label>
+        <label htmlFor="create-book-form-publish-date">Publish Date</label>
         <select 
             className="create-book-form-select" 
             id="create-book-form-publish-date"

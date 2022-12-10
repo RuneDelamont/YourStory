@@ -61,7 +61,7 @@ def create_author():
     curr_user_id = current_user.get_id()
     
     form = AuthorForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
+    form['csrf_token'].data = request.cookies['csrf_token']     
     
     if form.validate_on_submit():
         author = Author(
@@ -105,6 +105,19 @@ def update_author(author_id):
     # Update in form
     form = AuthorForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    
+    # Check for entries that are only ' ' whitespace
+    if(form.data['first_name'].strip() == ''or form.data['first_name'] is None):
+        return {'errors' : ['Invalid First Name']}, 400
+    
+    if(form.data['last_name'].strip() == ''or form.data['last_name'] is None):
+        return {'errors' : ['Invalid Last Name']}, 400
+    
+    if(form.data['pen_name'].strip() == ''or form.data['pen_name'] is None):
+        return {'errors' : ['Invalid Pen Name']}, 400
+    
+    if(form.data['email'].strip() == ''or form.data['email'] is None):
+        return {'errors' : ['Invalid email']}, 400
     
     author.first_name = form.data['first_name']
     author.last_name = form.data['last_name']

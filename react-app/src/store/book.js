@@ -58,7 +58,7 @@ export const thunkGetBooks = () => async (dispatch) => {
     // get all books
     const res = await fetch(`/api/books/`);
 
-    if(res.ok){
+    if (res.ok) {
         const books = await res.json();
 
         // dispatch and return all books
@@ -73,7 +73,7 @@ export const thunkGetBook = (id) => async (dispatch) => {
     // get book by id
     const res = await fetch(`/api/books/${id}/`);
 
-    if(res.ok){
+    if (res.ok) {
         const book = await res.json();
 
         // dispatch and return book
@@ -89,20 +89,27 @@ export const thunkCreateBook = (book) => async (dispatch) => {
     const res = await fetch(`/api/books/`, {
         method: "POST",
         headers: {
-            "content-type" : "application/json"
+            "content-type": "application/json"
         },
         body: JSON.stringify(book)
     });
 
-    if(res.ok){
+    if (res.ok) {
         const newBook = await res.json();
 
         // dispatch && return
         dispatch(createBook(newBook));
         return newBook;
-    }
+    // error if not internal
+    } else if (res.status < 500) {
 
-    return null;
+        const data = await res.json();
+        if (data.errors) {
+            return data.errors;
+        }
+    } else {
+        return ['An error occurred. Please try again.']
+    }
 }
 
 
@@ -112,20 +119,29 @@ export const thunkEditBook = (book, bookId) => async (dispatch) => {
     const res = await fetch(`/api/books/${bookId}`, {
         method: "PUT",
         headers: {
-            "content-type" : "application/json"
+            "content-type": "application/json"
         },
         body: JSON.stringify(book)
     });
 
-    if(res.ok){
+    // if res is ok
+    if (res.ok) {
         const updatedBook = await res.json();
 
         // dispatch && return
         dispatch(updateBook(updatedBook));
         return updatedBook;
-    }
+    
+    // error handling
+    } else if (res.status < 500) {
 
-    return null;
+        const data = await res.json();
+        if (data.errors) {
+            return data.errors;
+        }
+    } else {
+        return ['An error occurred. Please try again.']
+    }
 }
 
 
@@ -137,10 +153,10 @@ export const thunkDeleteBook = (book) => async (dispatch) => {
     });
 
     // if res.status === 200 delete book
-    if(res.ok){
+    if (res.ok) {
         dispatch(deleteBook(book.id))
     }
-    
+
     return null;
 }
 
@@ -149,10 +165,10 @@ export const thunkDeleteBook = (book) => async (dispatch) => {
 
 const initialState = {};
 
-export default function bookReducer(state = initialState, action){
+export default function bookReducer(state = initialState, action) {
     const newBooks = { ...state };
 
-    switch(action.type) {
+    switch (action.type) {
 
         case DELETE_BOOK:
             delete newBooks[action.id]

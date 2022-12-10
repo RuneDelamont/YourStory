@@ -36,11 +36,13 @@ export default function EditAuthorForm({ setShowModal }) {
 
         const data = await dispatch(authorActions.thunkPutAuthor(editedAuthor, authorId));
 
-        if (data) {
+        if (Array.isArray(data)) {
             setErrors(data);
+        } else {
+            setShowModal(false);
+            await dispatch(authorActions.thunkGetAuthors());
         }
-        setShowModal(false);
-        await dispatch(authorActions.thunkGetAuthors());
+
 
         // await history.push('/authors');
     }
@@ -51,7 +53,7 @@ export default function EditAuthorForm({ setShowModal }) {
             <ul id='edit-author-form-errors'>
                 {Array.isArray(errors) && errors?.map((error, id) => <li key={id}>{error}</li>)}
             </ul>
-            <label for='edit-author-first-name'>First Name</label>
+            <label htmlFor='edit-author-first-name'>First Name</label>
             <input className='edit-author-form-text-input'
                 id='edit-author-first-name'
                 required
@@ -60,7 +62,7 @@ export default function EditAuthorForm({ setShowModal }) {
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
             />
-            <label for='edit-author-last-name'>Last Name</label>
+            <label htmlFor='edit-author-last-name'>Last Name</label>
             <input className='edit-author-form-text-input'
                 id='edit-author-last-name'
                 required
@@ -69,16 +71,16 @@ export default function EditAuthorForm({ setShowModal }) {
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
             />
-            <label for='edit-author-email'>E-mail</label>
+            <label htmlFor='edit-author-email'>E-mail</label>
             <input className='edit-author-form-text-input'
                 id='edit-author-email'
                 required
                 placeholder={author.email}
-                type="text"
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
             />
-            <label for='edit-author-pen-name'>Pen Name</label>
+            <label htmlFor='edit-author-pen-name'>Pen Name</label>
             <input className='edit-author-form-text-input'
                 id='edit-author-pen-name'
                 required

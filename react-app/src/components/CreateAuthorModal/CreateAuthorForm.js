@@ -21,8 +21,8 @@ export default function CreateAuthor() {
 
     const submitAction = async e => {
         e.preventDefault();
-
         setErrors([]);
+
         const author = {
             user_id: userId,
             first_name: firstName,
@@ -33,13 +33,9 @@ export default function CreateAuthor() {
 
         const data = await dispatch(authorActions.thunkCreateAuthor(author));
 
-        if (data) {
+        if (Array.isArray(data)) {
             setErrors(data);
-            console.log(errors);
-        }
-
-        if (!errors.length) {
-            console.log("here");
+        }else{
             await dispatch(authorActions.thunkGetAuthors());
             await history.push('/authors');
         }
@@ -52,7 +48,7 @@ export default function CreateAuthor() {
             <ul id='author-form-errors'>
                 {Array.isArray(errors) && errors?.map((error, id) => <li key={id}>{error}</li>)}
             </ul>
-            <label for='create-author-first-name'>First Name</label>
+            <label htmlFor='create-author-first-name'>First Name</label>
             <input className='author-form-text-input'
                 id='create-author-first-name'
                 required
@@ -61,7 +57,7 @@ export default function CreateAuthor() {
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
             />
-            <label for='create-author'>Last Name</label>
+            <label htmlFor='create-author'>Last Name</label>
             <input className='author-form-text-input'
                 id='create-author-last-name'
                 required
@@ -70,16 +66,16 @@ export default function CreateAuthor() {
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
             />
-            <label for='create-author-email'>E-mail</label>
+            <label htmlFor='create-author-email'>E-mail</label>
             <input className='author-form-text-input'
                 id='create-author-email'
                 required
                 placeholder='E-mail'
-                type="text"
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
             />
-            <label for='create-author-pen-name'>Pen Name</label>
+            <label htmlFor='create-author-pen-name'>Pen Name</label>
             <input className='author-form-text-input'
                 id='create-author-pen-name'
                 required
@@ -88,7 +84,7 @@ export default function CreateAuthor() {
                 value={penName}
                 onChange={(e) => setPenName(e.target.value)}
             />
-            <button className='create-author-button' type='submit'>Create Author</button>
+            <button id='create-author-button-form' type='submit'>Create Author</button>
 
         </form>
     );

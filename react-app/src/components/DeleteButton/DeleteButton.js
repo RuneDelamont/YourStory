@@ -23,7 +23,6 @@ export default function DeleteButton(){
     const url = window.location.href.split('/');
     const location = url[3];
     const deleteIdNum = Number(url[4]);
-    // console.log(url);
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -33,12 +32,14 @@ export default function DeleteButton(){
         if(authorId) {
             let author = authors?.filter(author => author.id === authorId)[0];
             dispatch(authorActions.thunkDeleteAuthor(author));
+            dispatch(authorActions.thunkGetAuthors())
             history.push('/authors');
             }
 
         if(bookId) { 
             let book = books?.filter(book => book.id === bookId)[0];
             dispatch(bookActions.thunkDeleteBook(book));
+            dispatch(bookActions.thunkGetBooks());
             history.push('/books');
         }
 
@@ -46,6 +47,7 @@ export default function DeleteButton(){
             let chapter = chapters?.find(chapter => chapter.id === chapterId);
             let book = books?.find(book => book.id === chapter.book_id)
             dispatch(chapterActions.thunkDeleteChapter(chapter));
+            dispatch(chapterActions.thunkGetChapters());
             history.push(`/books/${book.id}`);
         }
     }

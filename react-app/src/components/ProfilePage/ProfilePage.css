@@ -31,12 +31,16 @@
 }
 
 #profile-lists{
+    display: flex;
+    flex-direction: column;
     margin-left: 3rem;
     background-color: #efefefe0;
     width: 60%;
     margin-top: 2rem;
     box-shadow: 10px -1px 26px 7px rgba(0, 0, 0, 0.47);
     -webkit-box-shadow: 10px -1px 26px 7px rgba(0, 0, 0, 0.47);
+    min-height: 200px;
+    margin-bottom: 2rem;
 }
 
 #profile-authors {
@@ -102,5 +106,10 @@
 .profile-nav:active{
     box-shadow: #D6D6E7 0 3px 7px inset;
     transform: translateY(2px);
+}
+
+#footer{
+    margin: 2rem;
+    display: flex;
 }
 

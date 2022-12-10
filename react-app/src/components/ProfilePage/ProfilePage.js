@@ -50,7 +50,7 @@ export default function ProfilePage() {
                 <TemplatePage />
                 <div id='button-container'>
                     <CreateAuthorModal />
-                    {userAuthors && (
+                    {userAuthors.length > 0 && (
                         <CreateBookModal />
                     )}
                 </div>
@@ -89,6 +89,7 @@ export default function ProfilePage() {
                         })}
                     </div>
                 </div>
+                <div id='footer'></div>
             </>
             :
         <></>

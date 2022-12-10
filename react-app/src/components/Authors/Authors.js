@@ -34,7 +34,7 @@ export default function Authors() {
                         {authors && Object.entries(authors).map(([key, author]) => {
                             return (<section className="author-sections" key={author.id}>
                                 <img id='author-section-pic' src='https://your-story-bucket.s3.us-west-1.amazonaws.com/writer_sihoutte.jpeg' />
-                                <NavLink className='author-section-nav' to={`/authors/${author.id}`}>{author.first_name} {author.last_name}</NavLink>
+                                <NavLink className='author-section-nav' to={`/authors/${author.id}`}>{author.pen_name}</NavLink>
                             </section>
                             )
                         }
