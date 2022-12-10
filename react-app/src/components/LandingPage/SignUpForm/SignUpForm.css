@@ -5,7 +5,7 @@
     border: 1px solid #ffffff;
     height: 28rem;
     width: 24rem;
-    padding: 3rem;
+    padding: 4rem;
     transition: all 0.25s ease-in-out;
     flex-direction: column;
     align-content: center;
@@ -67,4 +67,8 @@
 #sign-up-button:active{
     box-shadow: #D6D6E7 0 3px 7px inset;
     transform: translateY(2px);
+}
+
+#sign-up-errors{
+    color: red;
 }

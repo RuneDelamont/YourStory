@@ -3,7 +3,7 @@
     background-color: rgb(255, 255, 255);
     border-radius: 0.75rem;
     border: 1px solid #ffffff;
-    height: 24rem;
+    height: 32rem;
     width: 24rem;
     padding: 3rem;
     transition: all 0.25s ease-in-out;
@@ -69,4 +69,8 @@
 #login-button:active {
     box-shadow: #D6D6E7 0 3px 7px inset;
     transform: translateY(2px);
+}
+
+#login-errors{
+    color: red;
 }
