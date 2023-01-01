@@ -7,9 +7,8 @@ import * as bookActions from '../../store/book';
 import * as chapterActions from '../../store/chapter';
 import * as pageActions from '../../store/page';
 import TemplatePage from '../TemplatePage';
-import NotAuthorizedPage from '../NotAuthorizedPage';
-import EditBookModal from '../EditBookModal';
 import DeleteButton from '../DeleteButton';
+import EditChapterModal from '../EditChapterModal';
 
 import './ChapterDetails.css';
 import NotFoundPage from '../NotFoundPage';
@@ -38,7 +37,7 @@ export default function ChapterDetails() {
     const author = authors?.filter(author => author.id === chapter?.author_id)[0];
     const book = books?.filter(book => book.id === chapter?.book_id)[0];
     const title = chapter?.title;
-    const chapterPages = pages?.filter(page => page.book_id === book?.id);
+    const chapterPages = pages?.filter(page => page.chapter_id === chapter?.id);
 
     // if (!user) return (
     //     <Redirect to='/' />
@@ -59,7 +58,7 @@ export default function ChapterDetails() {
                             <div id='chapter-into-container'>
                                 {(chapter?.user_id === user?.id) && (
                                     <div id='chapter-button-div'>
-                                        {/* <EditBookModal /> */}
+                                        <EditChapterModal />
                                         <DeleteButton />
                                     </div>
                                 )}

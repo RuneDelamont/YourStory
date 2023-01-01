@@ -48,6 +48,7 @@ export default function DeleteButton(){
             let book = books?.find(book => book.id === chapter.book_id)
             dispatch(chapterActions.thunkDeleteChapter(chapter));
             dispatch(chapterActions.thunkGetChapters());
+            dispatch(pageActions.thunkGetPages());
             history.push(`/books/${book.id}`);
         }
     }

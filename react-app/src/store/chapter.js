@@ -90,7 +90,7 @@ export const thunkGetChaptersByBook = (id) => async (dispatch) => {
 // create chapter
 export const thunkCreateChapter = (chapter) => async (dispatch) => {
     // fetch
-    const res = await fetch(`/api/chapters/`, {
+    const res = await fetch(`/api/chapters/${chapter.book_id}`, {
         method: "POST",
         headers: {
             "content-type": "application/json"
@@ -103,17 +103,23 @@ export const thunkCreateChapter = (chapter) => async (dispatch) => {
         const newChapter = await res.json();
 
         // dispatch and return
-        dispatch(SET_CHAPTER(newChapter));
+        dispatch(createChapter(newChapter));
         return newChapter;
+    } else if(res.status < 500 ) {
+        const data = await res.json();
+        if(data.errors) {
+            return data.errors
+        }
+    } else {
+        return ['An error occurred. Please try again.']
     }
 
-    return null;
 }
 
 
-export const thunkUpdateChapter = (chapter) => async (dispatch) => {
+export const thunkUpdateChapter = (chapterId, chapter) => async (dispatch) => {
     // fetch 
-    const res = await fetch(`/api/chapters/${chapter.id}`, {
+    const res = await fetch(`/api/chapters/${chapterId}`, {
         method: "PUT",
         headers: {
             "content-type": "application/json"
@@ -126,7 +132,7 @@ export const thunkUpdateChapter = (chapter) => async (dispatch) => {
         const updatedChapter = await res.json();
 
         // dispatch and return
-        dispatch(PUT_CHAPTER(updateChapter));
+        dispatch(updateChapter(updateChapter));
         return updatedChapter;
     }
 

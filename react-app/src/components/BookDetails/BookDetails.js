@@ -16,6 +16,9 @@ import './BookDetails.css';
 export default function BookDetails() {
     let { bookId } = useParams();
     bookId = Number(bookId);
+    const [visible, setVisibility] = useState('hidden');
+    const [title, setTitle] = useState('');
+    const [errors, setErrors] = useState([]);
 
     const user = useSelector(state => state.session.user);
     const books = useSelector(state => Object.values(state.books));
@@ -25,6 +28,35 @@ export default function BookDetails() {
     const book = useSelector(state => state.books[bookId]);
 
     const dispatch = useDispatch();
+    const history = useHistory();
+
+    const visibilityToggle = () => {
+        if (visible === 'hidden') {
+            setVisibility('visible');
+        } else {
+            setVisibility('hidden');
+        }
+    }
+
+    const newChapterSubmit = async e => {
+        e.preventDefault();
+
+        const chapter = {
+            user_id: user.id,
+            author_id: book.author_id,
+            book_id: book.id,
+            title: title
+        }
+
+        const data = await dispatch(chapterActions.thunkCreateChapter(chapter));
+
+        if (Array.isArray(data)) {
+            setErrors(data);
+        } else {
+            await dispatch(chapterActions.thunkGetChapters());
+            setVisibility('hidden');
+        }
+    }
 
     useEffect(() => {
         dispatch(authorActions.thunkGetAuthors());
@@ -73,6 +105,35 @@ export default function BookDetails() {
                     <div id='book-lists'>
                         <div id='book-chapters'>
                             <h2 className='chapter-subheaders'>Chapters</h2>
+                            {(book?.user_id === user?.id) && (
+                                <>
+                                    <div id='create-button-container'>
+                                        <button id="create-chapter-button"
+                                            onClick={visibilityToggle}>
+                                            Create Chapter
+                                        </button>
+                                    </div>
+                                    <section style={{ visibility: visible }}>
+                                        <form id='create-chapter-form'
+                                            onSubmit={newChapterSubmit}
+                                        >
+                                            <ul id='create-chapter-form-errors'>
+                                                {Array.isArray(errors) && errors?.map((error, id) => <li key={id}>{error}</li>)}
+                                            </ul>
+                                            <label htmlFor='create-chapter-title'>Title</label>
+                                            <input id='chapter-title'
+                                                required
+                                                placeholder='Title'
+                                                type='text'
+                                                value={title}
+                                                onChange={e => setTitle(e.target.value)}
+                                            />
+                                            {/* <button id='create-chapter-hide-form' onClick={setVisibility('hidden')}>Cancel</button> */}
+                                            <button id='create-chapter-button-submit' type='submit'>Create</button>
+                                        </form>
+                                    </section>
+                                </>
+                            )}
                             {bookChapters && bookChapters.map((chapter, index) => {
                                 return (
                                     <section className='book-chapters-section' key={chapter.id}>

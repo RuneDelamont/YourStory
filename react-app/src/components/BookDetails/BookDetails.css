@@ -88,3 +88,43 @@
 .book-chapters-nav:hover {
     text-decoration: underline;
 }
+
+#create-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#create-chapter-button {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+#create-chapter-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#create-chapter-form-errors{
+    color: red;
+}
+
+#chapter-title{
+    outline: none;
+    border: 0;
+    border: 1px solid #cecece;
+    height: 30px;
+    text-align: center;
+    margin-bottom: 0.7rem;
+}
+
+#create-chapter-button-submit {
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}

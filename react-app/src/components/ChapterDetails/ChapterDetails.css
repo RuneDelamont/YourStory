@@ -52,3 +52,7 @@
 .chapter-details-subheader{
     text-align: center;
 }
+
+#chapter-button-div{
+    display: flex;
+}
