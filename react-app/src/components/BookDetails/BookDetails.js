@@ -24,8 +24,13 @@ export default function BookDetails() {
     const books = useSelector(state => Object.values(state.books));
     const authors = useSelector(state => Object.values(state.authors));
     const chapters = useSelector(state => Object.values(state.chapters))
-
     const book = useSelector(state => state.books[bookId]);
+
+    const author = authors?.filter(author => author.id === book?.author_id)[0];
+    const name = book?.name;
+    const publishDate = book?.publish_date;
+    const bookChapters = chapters?.filter(chapter => chapter.book_id === book?.id);
+    console.log(bookChapters);
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -54,20 +59,18 @@ export default function BookDetails() {
             setErrors(data);
         } else {
             await dispatch(chapterActions.thunkGetChapters());
+            setTitle('');
             setVisibility('hidden');
         }
     }
 
     useEffect(() => {
-        dispatch(authorActions.thunkGetAuthors());
+        // dispatch(authorActions.thunkGetAuthors());
         dispatch(bookActions.thunkGetBooks());
         dispatch(chapterActions.thunkGetChapters());
     }, [dispatch]);
 
-    const author = authors?.filter(author => author.id === book?.author_id)[0];
-    const name = book?.name;
-    const publishDate = book?.publish_date;
-    const bookChapters = chapters?.filter(chapter => chapter.book_id === book?.id);
+
 
     // if (!user) return (
     //     <Redirect to='/' />
