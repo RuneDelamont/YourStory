@@ -76,7 +76,7 @@ export const thunkGetPage = (pageId) => async (dispatch) => {
 // create page in chapter 
 export const thunkCreateNewPage = (chapterId, page) => async(dispatch) => {
     // fetch post new page
-    const res = await fetch(`/api/pages/${chapterId}/`, {
+    const res = await fetch(`/api/pages/${chapterId}`, {
         method: "POST",
         headers: {
             "content-type": "application/json"
@@ -120,7 +120,7 @@ export const thunkEditPage = (page, pageId) => async (dispatch) => {
 // delete page
 export const thunkDeletePage = (id) => async (dispatch) => {
     // fetch delete page
-    const res = await fetch(`/api/pages/${id}/`, {
+    const res = await fetch(`/api/pages/${id}`, {
         method: "DELETE"
     });
 

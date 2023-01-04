@@ -9,6 +9,7 @@ import * as pageActions from '../../store/page';
 import TemplatePage from '../TemplatePage';
 import DeleteButton from '../DeleteButton';
 import EditChapterModal from '../EditChapterModal';
+import CreatePageModal from '../CreatePageModal';
 
 import './ChapterDetails.css';
 import NotFoundPage from '../NotFoundPage';
@@ -39,6 +40,13 @@ export default function ChapterDetails() {
     const title = chapter?.title;
     const chapterPages = pages?.filter(page => page.chapter_id === chapter?.id);
 
+    const deletePageHandler = async (pageId) => {
+        // e.preventDefault();
+
+        dispatch(pageActions.thunkDeletePage(pageId));
+        dispatch(pageActions.thunkGetPages());
+    }
+
     // if (!user) return (
     //     <Redirect to='/' />
     // )
@@ -66,6 +74,11 @@ export default function ChapterDetails() {
                                     <h1 className='chapter-text'>{book?.name}</h1>
                                     <h2 className='chapter-text'>{title}</h2>
                                 </section>
+                                {(chapter?.user_id === user?.id) && (
+                                    <div id='page-button-div'>
+                                        <CreatePageModal />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -74,6 +87,11 @@ export default function ChapterDetails() {
                             {chapterPages && chapterPages?.map((page, index) => {
                                 return (
                                     <section className='page-section' key={page.id}>
+                                        {(page?.user_id === user?.id) && (
+                                            <div id='page-buttons'>
+                                                <button id='page-delete-button' onClick={() => deletePageHandler(page.id)}>Delete</button>
+                                            </div>
+                                        )}
                                         <div className='words-container'>
                                             <h3 className='chapter-details-subheader'>Page {index + 1}</h3>
                                             <p className='page'>{page.page_words}</p>
