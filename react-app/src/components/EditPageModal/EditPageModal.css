@@ -1,4 +1,5 @@
-#edit-chapter-button{
+/* Modal button */
+#edit-page-button-modal{
     margin-right: 0.5rem;
     margin-left: 1.1rem;
     background-color: #FFFFFF;
@@ -12,7 +13,6 @@
     font-size: 16px;
     font-weight: 600;
     line-height: 20px;
-    /* margin-right: 1rem; */
     outline: none;
     padding: 8px 18px;
     position: relative;
@@ -25,34 +25,33 @@
     width: auto;
 }
 
-#edit-chapter-button:focus-visible {
+#edit-page-button-modal:focus-visible {
     box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
     transition: box-shadow .2s;
 }
 
-#edit-chapter-button:active {
+#edit-page-button-modal:active {
     background-color: #F7F7F7;
     border-color: #000000;
     transform: scale(.96);
 }
 
-#edit-chapter-button:disabled {
+#edit-page-button-modal:disabled {
     border-color: #DDDDDD;
     color: #DDDDDD;
     cursor: not-allowed;
     opacity: 1;
 }
 
+/* form */
 
-/* Form */
-
-.edit-chapter-form{
+.edit-page-form{
     display: flex;
     background-color: rgb(255, 255, 255);
     border-radius: 0.75rem;
     border: 1px solid #000000;
-    height: 28rem;
-    width: 24rem;
+    height: 32rem;
+    width: 28rem;
     /* padding: 3rem; */
     transition: all 0.25s ease-in-out;
     flex-direction: column;
@@ -61,21 +60,14 @@
     justify-content: center;
 }
 
-#edit-chapter-form-errors{
-    color: red;
+#page-buttons{
+    display: flex;
+    justify-content: center;
 }
 
-#edit-chapter-title{
-    outline: none;
-    border: 0;
-    border: 1px solid #cecece;
-    height: 40px;
-    width: 50%;
-    margin-bottom: 2rem;
-    text-align: center;
-}
-
-#edit-chapter-button-submit{
+.edit-page-button{
+    margin-right: 0.5rem;
+    margin-left: 1.1rem;
     background-color: #FFFFFF;
     border: 1px solid #222222;
     border-radius: 8px;
@@ -87,7 +79,7 @@
     font-size: 16px;
     font-weight: 600;
     line-height: 20px;
-    /* margin-right: 1rem; */
+    margin-bottom: 1rem;
     outline: none;
     padding: 8px 18px;
     position: relative;
@@ -100,21 +92,47 @@
     width: auto;
 }
 
-#edit-chapter-form-button:focus-visible {
+.edit-page-button:focus-visible {
     box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
     transition: box-shadow .2s;
 }
 
-#edit-chapter-form-button:active {
+.edit-page-button:active {
     background-color: #F7F7F7;
     border-color: #000000;
     transform: scale(.96);
 }
 
-#edit-chapter-form-button:disabled {
+.edit-page-button:disabled {
     border-color: #DDDDDD;
     color: #DDDDDD;
     cursor: not-allowed;
     opacity: 1;
 }
+
+.edit-page-form{
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    border-radius: 0.75rem;
+    border: 1px solid #000000;
+    height: 32rem;
+    width: 28rem;
+    /* padding: 3rem; */
+    transition: all 0.25s ease-in-out;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+#edit-page-words{
+    outline: none;
+    border: 0;
+    border: 1px solid #cecece;
+    height: 400px;
+    width: 400px;
+    margin-bottom: 2rem;
+    /* text-align: center; */
+}
+
 

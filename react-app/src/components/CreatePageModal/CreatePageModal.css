@@ -1,0 +1,71 @@
+.create-page-form {
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    border-radius: 0.75rem;
+    border: 1px solid #000000;
+    height: 32rem;
+    width: 28rem;
+    /* padding: 3rem; */
+    transition: all 0.25s ease-in-out;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+#create-page-form-errors{
+    color: red;
+}
+
+#create-page-words{
+    outline: none;
+    border: 0;
+    border: 1px solid #cecece;
+    height: 400px;
+    width: 400px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.create-page-button {
+    background-color: #FFFFFF;
+    border: 1px solid #222222;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #222222;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    margin-bottom: 1rem;
+    outline: none;
+    padding: 8px 18px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    touch-action: manipulation;
+    transition: box-shadow .2s, -ms-transform .1s, -webkit-transform .1s, transform .1s;
+    user-select: none;
+    -webkit-user-select: none;
+    width: auto;
+  }
+  
+  .create-page-button:focus-visible {
+    box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+    transition: box-shadow .2s;
+  }
+  
+  .create-page-button:active {
+    background-color: #F7F7F7;
+    border-color: #000000;
+    transform: scale(.96);
+  }
+  
+  .create-page-button:disabled {
+    border-color: #DDDDDD;
+    color: #DDDDDD;
+    cursor: not-allowed;
+    opacity: 1;
+  }
