@@ -97,7 +97,7 @@ export const thunkCreateNewPage = (chapterId, page) => async(dispatch) => {
 // edit page
 export const thunkEditPage = (page, pageId) => async (dispatch) => {
     // fetch page
-    const res = await fetch(`/api/pages/${pageId}/`,{
+    const res = await fetch(`/api/pages/${pageId}`,{
         method: "PUT",
         headers: {
             "content-type" : "application/json"

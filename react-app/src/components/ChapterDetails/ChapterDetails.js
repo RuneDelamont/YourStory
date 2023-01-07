@@ -10,6 +10,7 @@ import TemplatePage from '../TemplatePage';
 import DeleteButton from '../DeleteButton';
 import EditChapterModal from '../EditChapterModal';
 import CreatePageModal from '../CreatePageModal';
+import EditPageModal from '../EditPageModal';
 
 import './ChapterDetails.css';
 import NotFoundPage from '../NotFoundPage';
@@ -87,12 +88,13 @@ export default function ChapterDetails() {
                             {chapterPages && chapterPages?.map((page, index) => {
                                 return (
                                     <section className='page-section' key={page.id}>
-                                        {(page?.user_id === user?.id) && (
-                                            <div id='page-buttons'>
-                                                <button id='page-delete-button' onClick={() => deletePageHandler(page.id)}>Delete</button>
-                                            </div>
-                                        )}
                                         <div className='words-container'>
+                                            {(page?.user_id === user?.id) && (
+                                                <div id='page-buttons'>
+                                                    <EditPageModal page={page} />
+                                                    <button id='page-delete-button' onClick={() => deletePageHandler(page.id)}>Delete</button>
+                                                </div>
+                                            )}
                                             <h3 className='chapter-details-subheader'>Page {index + 1}</h3>
                                             <p className='page'>{page.page_words}</p>
                                         </div>
@@ -105,7 +107,7 @@ export default function ChapterDetails() {
                 :
                 <></>
             :
-        <></>
+            <></>
     )
     return ChapterDetailsPage;
 

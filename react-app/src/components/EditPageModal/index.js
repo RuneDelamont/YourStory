@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { Modal } from "../../context/Modal";
-import EditChapterForm from './EditChapterForm';
-import "./EditChapterModal.css";
+import EditPageForm from './EditPageForm';
+import './EditPageModal.css';
 
-export default function EditChapterModal() {
+export default function EditPageModal({page}) {
     const [showModal, setShowModal] = useState(false);
 
     return (
         <>
-            <button id='edit-chapter-button' onClick={() => setShowModal(true)}>
+            <button id='edit-page-button-modal' onClick={() => setShowModal(true)}>
                 Edit
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <EditChapterForm setShowModal={setShowModal}/>
+                    <EditPageForm setShowModal={setShowModal} page={page} />
                 </Modal>
             )}
         </>

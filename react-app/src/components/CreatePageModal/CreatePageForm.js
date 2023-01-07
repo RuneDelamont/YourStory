@@ -56,7 +56,7 @@ export default function CreatePageForm({ setShowModal }) {
                 value={pageWords}
                 onChange={(e) => setPageWords(e.target.value)}
             ></textarea>
-            <button id='create-page-button-form' type='submit'>Create Page</button>
+            <button className='create-page-button' type='submit'>Create Page</button>
         </form>
     )
 }
